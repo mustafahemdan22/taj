@@ -1,0 +1,45 @@
+.heroSection {
+    background-image: url('./../public/batch_C.H._Feb_13_2025_65526_6e2a620b-3d08-46fd-a9b5-8158b1561969_1645x.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+    
+}
+
+.heroSection::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.heroContent {
+    position: relative;
+    height: 100vh;
+
+    z-index: 2;
+
+}
+
+/* Fix class name formatting and add vendor prefixes */
+.span {
+    background: linear-gradient(135deg, #f7f5f5, #8a8a8a, #faf9f9);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent; /* Fallback for older browsers */
+}
+
+/* Add mobile responsiveness */
+@media (max-width: 768px) {
+    .heroSection {
+        background-attachment: scroll; /* Better mobile performance */
+    }
+}
