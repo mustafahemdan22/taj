@@ -6,9 +6,9 @@ import { useLanguage } from '../../../contexts/LanguageProvider';
 import { FiArrowLeft, FiArrowRight, FiCalendar, FiUser } from 'react-icons/fi';
 import styles from './BlogPost.module.css';
 import { useEffect, useState ,use } from 'react';
-import img from "@/public/images/categories/Black-Crepe-Shayla-Hijab-600x600 copy.jpg";
-import img2 from "@/public/images/categories/Black-Crepe-Shayla-Hijab-600x600.jpg";
-import img3 from "@/public/images/categories/OIP (10) - Copy.jpeg";
+import img from "@/public/images/categories/Black-Crepe-Shayla-Hijab-600x600.jpg";
+import img2 from "@/public/images/categories/OIP (10).jpeg";
+import img3 from "@/public/images/categories/OIP (11).jpeg";
 // بيانات المقالات
 const blogPosts = {
   'smart-shopping': {
