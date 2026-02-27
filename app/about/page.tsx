@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { FiTarget, FiUsers, FiAward, FiHeart } from 'react-icons/fi';
 import { useLanguage } from '../../contexts/LanguageProvider';
-import img from "@/public/images/categories/smoky-hijab-scarf-1new.jpg";
+import img from "@/public/images/categories/OIP (11).jpeg";
 import Image from "next/image";
 
 const AboutPage = () => {
