@@ -61,9 +61,9 @@ export default function Page() {
             </p>
             <Link
               href="/categories"
-              className="inline-flex items-center px-8 py-4 bg-white text-zinc-800 font-semibold rounded-lg hover:bg-zinc-100 transition-colors duration-200 shadow-lg hover:shadow-xl"
+              className="inline-flex items-center px-10 py-5 bg-white text-zinc-900 font-bold rounded-2xl hover:bg-zinc-100 transition-all duration-300 shadow-xl hover:shadow-white/20 transform hover:-translate-y-1 text-lg"
             >
-              <FiShoppingBag className="w-5 h-5 ml-2 rtl:ml-0 rtl:mr-2" />
+              <FiShoppingBag className="w-6 h-6 mr-3 rtl:mr-0 rtl:ml-3" />
               {language === 'ar' ? 'استكشف المجموعة' : 'Explore the Collection'}
             </Link>
           </motion.div>

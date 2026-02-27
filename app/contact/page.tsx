@@ -6,7 +6,7 @@ import { useLanguage } from "../../contexts/LanguageProvider";
 import { useState } from "react";
 
 const ContactPage = () => {
-  const { language } = useLanguage();
+  const { language, isRTL } = useLanguage();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -86,18 +86,18 @@ const ContactPage = () => {
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8"
+            className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/20 dark:border-gray-700/30"
           >
-            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
               {language === "ar" ? "أرسل لنا رسالة" : "Send us a Message"}
             </h2>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 px-1"
                   >
                     {language === "ar" ? "الاسم الكامل" : "Full Name"}
                   </label>
@@ -108,7 +108,7 @@ const ContactPage = () => {
                     required
                     value={formData.name}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-zinc-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-5 py-4 border-2 border-gray-100 dark:border-gray-700 rounded-2xl focus:ring-4 focus:ring-zinc-500/20 focus:border-zinc-500 bg-white/50 dark:bg-gray-700/50 text-gray-900 dark:text-white transition-all duration-300"
                     placeholder={
                       language === "ar" ? "اسمك الكامل" : "Your full name"
                     }
@@ -118,7 +118,7 @@ const ContactPage = () => {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 px-1"
                   >
                     {language === "ar" ? "البريد الإلكتروني" : "Email"}
                   </label>
@@ -129,7 +129,7 @@ const ContactPage = () => {
                     required
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-zinc-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-5 py-4 border-2 border-gray-100 dark:border-gray-700 rounded-2xl focus:ring-4 focus:ring-zinc-500/20 focus:border-zinc-500 bg-white/50 dark:bg-gray-700/50 text-gray-900 dark:text-white transition-all duration-300"
                     placeholder={
                       language === "ar" ? "بريدك الإلكتروني" : "your@email.com"
                     }
@@ -137,11 +137,11 @@ const ContactPage = () => {
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
                   <label
                     htmlFor="phone"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 px-1"
                   >
                     {language === "ar" ? "رقم الهاتف" : "Phone Number"}
                   </label>
@@ -151,9 +151,9 @@ const ContactPage = () => {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-zinc-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-5 py-4 border-2 border-gray-100 dark:border-gray-700 rounded-2xl focus:ring-4 focus:ring-zinc-500/20 focus:border-zinc-500 bg-white/50 dark:bg-gray-700/50 text-gray-900 dark:text-white transition-all duration-300"
                     placeholder={
-                      language === "ar" ? "رقم الهاتف" : "+1 (555) 123-4567"
+                      language === "ar" ? "رقم الهاتف" : "+20 ..."
                     }
                   />
                 </div>
@@ -161,7 +161,7 @@ const ContactPage = () => {
                 <div>
                   <label
                     htmlFor="subject"
-                    className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                    className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 px-1"
                   >
                     {language === "ar" ? "الموضوع" : "Subject"}
                   </label>
@@ -172,7 +172,7 @@ const ContactPage = () => {
                     required
                     value={formData.subject}
                     onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-zinc-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-5 py-4 border-2 border-gray-100 dark:border-gray-700 rounded-2xl focus:ring-4 focus:ring-zinc-500/20 focus:border-zinc-500 bg-white/50 dark:bg-gray-700/50 text-gray-900 dark:text-white transition-all duration-300"
                     placeholder={
                       language === "ar" ? "موضوع الرسالة" : "Message subject"
                     }
@@ -183,18 +183,18 @@ const ContactPage = () => {
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+                  className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 px-1"
                 >
                   {language === "ar" ? "الرسالة" : "Message"}
                 </label>
                 <textarea
                   id="message"
                   name="message"
-                  rows={6}
+                  rows={5}
                   required
                   value={formData.message}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-zinc-500 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white resize-none"
+                  className="w-full px-5 py-4 border-2 border-gray-100 dark:border-gray-700 rounded-2xl focus:ring-4 focus:ring-zinc-500/20 focus:border-zinc-500 bg-white/50 dark:bg-gray-700/50 text-gray-900 dark:text-white resize-none transition-all duration-300"
                   placeholder={
                     language === "ar"
                       ? "اكتب رسالتك هنا..."
@@ -203,15 +203,17 @@ const ContactPage = () => {
                 />
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
                 type="submit"
-                className="w-full bg-zinc-700 text-white font-semibold py-3 px-6 rounded-lg hover:bg-zinc-800 transition-colors duration-200 flex items-center justify-center space-x-2 rtl:space-x-reverse"
+                className="w-full bg-gradient-to-br from-zinc-700 to-zinc-900 text-white font-bold py-5 px-8 rounded-2xl shadow-xl hover:shadow-zinc-500/30 transition-all duration-300 flex items-center justify-center space-x-3 rtl:space-x-reverse text-lg"
               >
-                <FiSend className="w-5 h-5" />
+                <FiSend className="w-6 h-6" />
                 <span>
                   {language === "ar" ? "إرسال الرسالة" : "Send Message"}
                 </span>
-              </button>
+              </motion.button>
             </form>
           </motion.div>
 
@@ -222,28 +224,29 @@ const ContactPage = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="space-y-8"
           >
-            <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+            <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/20 dark:border-gray-700/30 h-full">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-8">
                 {language === "ar" ? "معلومات التواصل" : "Contact Information"}
               </h2>
 
-              <div className="space-y-6">
+              <div className="space-y-8">
                 {contactInfo.map((info, index) => (
                   <motion.div
                     key={index}
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.1 * index }}
-                    className="flex items-start space-x-4 rtl:space-x-reverse"
+                    whileHover={{ x: isRTL ? -10 : 10 }}
+                    className="flex items-start space-x-6 rtl:space-x-reverse group p-4 rounded-2xl hover:bg-zinc-50 dark:hover:bg-zinc-900/50 transition-all duration-300"
                   >
-                    <div className="w-12 h-12 bg-zinc-200 dark:bg-zinc-900 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <info.icon className="w-6 h-6 text-zinc-600 dark:text-zinc-400" />
+                    <div className="w-14 h-14 bg-zinc-100 dark:bg-zinc-900 rounded-2xl flex items-center justify-center flex-shrink-0 shadow-inner group-hover:scale-110 transition-transform duration-300 group-hover:bg-zinc-800 group-hover:text-white dark:group-hover:bg-zinc-100 dark:group-hover:text-zinc-900">
+                      <info.icon className="w-7 h-7 transition-colors duration-300" />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1 group-hover:text-zinc-700 dark:group-hover:text-zinc-300 transition-colors">
                         {info.title}
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-400 whitespace-pre-line">
+                      <p className="text-gray-600 dark:text-gray-400 whitespace-pre-line text-lg leading-relaxed">
                         {info.details}
                       </p>
                     </div>

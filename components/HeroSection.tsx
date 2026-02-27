@@ -95,11 +95,8 @@ const HeroSection = () => {
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="w-64 h-64 mx-auto  "
+                className="w-64 h-64 mx-auto"
               >
-                <div className="fixed inset-0 -z-20">
-                 <h1>jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</h1>
-                </div>
               </motion.div>
             </div>
           </motion.div>

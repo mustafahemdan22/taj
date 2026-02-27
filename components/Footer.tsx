@@ -42,7 +42,7 @@ const Footer = () => {
       text: language === "ar" ? "باشمينا" : "Pashmina",
     },
     {
-      href: "/categories/Acrylic",
+      href: "/categories/acrylic",
       text: language === "ar" ? "الأكريليك" : "Acrylic",
     },
     {
