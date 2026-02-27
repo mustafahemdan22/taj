@@ -8,7 +8,7 @@ import { useOrders } from '../../contexts/OrderProvider';
 import { useAuth } from '../../contexts/AuthProvider';
 import { useLanguage } from '../../contexts/LanguageProvider';
 import { clearCart } from '../../store/cartSlice';
-import { FiCreditCard, FiMapPin,  FiUser, FiArrowLeft, FiCheckCircle } from 'react-icons/fi';
+import { FiCreditCard, FiMapPin, FiUser, FiArrowLeft, FiCheckCircle, FiShoppingCart } from 'react-icons/fi';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 
@@ -402,7 +402,7 @@ const CheckoutPage = () => {
                 {items.map((item) => (
                   <div key={item.product.id} className="flex items-center space-x-3 rtl:space-x-reverse">
                     <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-                      <span className="text-lg">🛒</span>
+                      <FiShoppingCart className="w-5 h-5 text-gray-500" />
                     </div>
                     <div className="flex-1">
                       <h3 className="font-medium text-gray-900 dark:text-white text-sm">

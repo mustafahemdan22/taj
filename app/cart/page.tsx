@@ -26,6 +26,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import Image from "next/image";
+import { getProductImageUrl } from "../../utils/productImage";
 
 const CartPage = () => {
   const { language, isRTL } = useLanguage();
@@ -184,14 +185,13 @@ const CartPage = () => {
                         className="p-6 flex flex-wrap items-center gap-4"
                       >
                         {/* Product Image */}
-                        <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden">
+                        <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden relative">
                           <Image
-                            src={item.product?.image || "/placeholder.png"}
+                            src={getProductImageUrl(item.product)}
                             alt={productName}
-                            width={500}
-                            height={300}
-                            className="w-full h-full object-cover"
-                            priority={index < 3}
+                            fill
+                            className="object-cover"
+                            sizes="96px"
                           />
                         </div>
 

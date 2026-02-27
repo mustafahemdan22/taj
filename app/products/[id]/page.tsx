@@ -88,7 +88,7 @@ const ProductDetailPage = () => {
       <div className="min-h-screen bg-[#EEEFF1] dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-32 h-32 mx-auto mb-6 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center">
-            <span className="text-6xl">😕</span>
+            <FiShoppingCart className="w-16 h-16 text-gray-400" />
           </div>
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
             {language === "ar" ? "المنتج غير موجود" : "Product Not Found"}
@@ -123,8 +123,8 @@ const ProductDetailPage = () => {
   const productDescription =
     language === "ar" ? product.description : product.descriptionEn;
 
-  const pid = (product as any)._id ?? product.id;
-  const cartItem = cartItems.find((item: any) => (item.product._id ?? item.product.id) === pid);
+  const pid = product._id;
+  const cartItem = cartItems.find((item: any) => item.product._id === pid);
   const currentQuantity = cartItem ? cartItem.quantity : 0;
   const isWishlisted = isInWishlist(pid);
 
@@ -136,7 +136,6 @@ const ProductDetailPage = () => {
       language === "ar"
         ? `تم إضافة ${quantity} من ${productName} إلى السلة`
         : `${quantity} ${productName} added to cart`,
-      { icon: "🛒" }
     );
     setQuantity(1);
   };
@@ -166,7 +165,6 @@ const ProductDetailPage = () => {
         : isWishlisted
         ? "Removed from wishlist"
         : "Added to wishlist",
-      { icon: isWishlisted ? "💔" : "❤️" }
     );
   };
 
@@ -187,21 +185,6 @@ const ProductDetailPage = () => {
         language === "ar" ? "تم نسخ الرابط" : "Link copied to clipboard"
       );
     }
-  };
-
-  // ✅ Fixed: Scarf categories emojis
-  const getProductEmoji = (category: string) => {
-    const emojiMap: Record<string, string> = {
-      cashmere: "🧣",
-      silk: "✨",
-      wool: "🐑",
-      pashmina: "🌿",
-      cotton: "👕",
-      acrylic: "🧶",
-      infinity: "♾️",
-      chiffon: "🌬️",
-    };
-    return emojiMap[category as keyof typeof emojiMap] || "🧣";
   };
 
   const features = [
@@ -276,9 +259,9 @@ const ProductDetailPage = () => {
               />
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300" />
               
-              {/* Category Emoji Overlay */}
-              <div className="absolute top-6 left-6 p-4 bg-white/90 dark:bg-black/70 backdrop-blur-md rounded-2xl shadow-xl z-10 border border-white/20">
-                <span className="text-3xl">{getProductEmoji(product.category)}</span>
+              {/* Category Label */}
+              <div className="absolute top-6 left-6 px-4 py-2 bg-white/90 dark:bg-black/70 backdrop-blur-md rounded-xl shadow-xl z-10 border border-white/20">
+                <span className="text-sm font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">{product.category}</span>
               </div>
             </div>
 
@@ -374,8 +357,8 @@ const ProductDetailPage = () => {
 
             {/* Brand & Category */}
             <div className="flex flex-wrap gap-4 text-sm text-gray-500 dark:text-gray-400">
-              <span>👑 {product.brand}</span>
-              <span>📂 {language === "ar" ? product.category : product.category}</span>
+              <span>{product.brand}</span>
+              <span>{language === "ar" ? product.category : product.category}</span>
             </div>
 
             {/* Description */}
@@ -492,7 +475,7 @@ const ProductDetailPage = () => {
             {/* Features */}
             <div className="space-y-4">
               <h3 className="text-xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                ✨ {language === "ar" ? "المميزات" : "Features"}
+                {language === "ar" ? "المميزات" : "Features"}
               </h3>
               <div className="grid grid-cols-1 gap-4">
                 {features.map((feature, index) => (

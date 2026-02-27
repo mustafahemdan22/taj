@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { useOrders } from '../../contexts/OrderProvider';
 import { useLanguage } from '../../contexts/LanguageProvider';
 import { useAuth } from '../../contexts/AuthProvider';
-import { FiPackage, FiTruck, FiCheckCircle, FiClock, FiXCircle, FiEye, FiCalendar } from 'react-icons/fi';
+import { FiPackage, FiTruck, FiCheckCircle, FiClock, FiXCircle, FiEye, FiCalendar, FiShoppingCart } from 'react-icons/fi';
 import Link from 'next/link';
 import { useState } from 'react';
 
@@ -222,7 +222,7 @@ const OrderHistoryPage = () => {
                   {order.items.slice(0, 3).map((item, itemIndex) => (
                     <div key={itemIndex} className="flex items-center space-x-3 rtl:space-x-reverse">
                       <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center">
-                        <span className="text-lg">🛒</span>
+                        <FiShoppingCart className="w-5 h-5 text-gray-500" />
                       </div>
                       <div className="flex-1">
                         <h4 className="font-medium text-gray-900 dark:text-white">

@@ -7,9 +7,9 @@ export const categoryTranslations: Record<string, { ar: string; en: string; imag
     wool: { ar: 'صوف', en: 'Wool', image: '/images/categories/wool.png' },
     pashmina: { ar: 'باشمينا', en: 'Pashmina', image: '/images/categories/pashmina.png' },
     cotton: { ar: 'قطن', en: 'Cotton', image: '/images/categories/cotton.png' },
-    acrylic: { ar: 'أكريليك', en: 'Acrylic', image: '/images/voal_scarf_printed.jpg' },
-    infinity: { ar: 'إنفينيتي', en: 'Infinity', image: '/images/smoky-hijab-scarf-1new.jpg' },
-    chiffon: { ar: 'شيفون', en: 'Chiffon', image: '/images/green-scarf-chiffon-1.jpg' },
+    acrylic: { ar: 'أكريليك', en: 'Acrylic', image: '/images/categories/voal_scarf_printed.jpg' },
+    infinity: { ar: 'إنفينيتي', en: 'Infinity', image: '/images/categories/smoky-hijab-scarf-1new.jpg' },
+    chiffon: { ar: 'شيفون', en: 'Chiffon', image: '/images/categories/green-scarf-chiffon-1.jpg' },
 };
 
 export const getCategoryData = (category: string) => {

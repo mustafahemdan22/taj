@@ -4,9 +4,9 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '../../contexts/LanguageProvider';
-import img from "@/public/images/6bd25cf81de4eaa03c372f8f02b9c977.png";
-import img2 from "@/public/images/Black-Crepe-Shayla-Hijab-600x600.jpg";
-import img3 from "@/public/images/OIP.jpeg"; // ممكن تغير الصورة لو حاب
+import img from "@/public/images/categories/Black-Crepe-Shayla-Hijab-600x600 copy.jpg";
+import img2 from "@/public/images/categories/Black-Crepe-Shayla-Hijab-600x600.jpg";
+import img3 from "@/public/images/categories/OIP (10) - Copy.jpeg"; // ممكن تغير الصورة لو حاب
 
 const BlogPage = () => {
   const { language } = useLanguage();

@@ -5,7 +5,7 @@
 // =====================
 export interface Product {
   _id: string;
-  id: string;
+  id?: string;
   name: string;
   nameEn?: string;
   price: number;

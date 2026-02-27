@@ -1,6 +1,6 @@
 // store/cartSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type {  CartState, Product } from "@/types";
+import type { CartState, Product } from "@/types";
 const CART_STORAGE_KEY = 'grocery-cart';
 const FREE_DELIVERY_THRESHOLD = 200; // حد التوصيل المجاني
 const DELIVERY_FEE = 20; // رسوم التوصيل الثابتة
@@ -26,7 +26,7 @@ const loadCartFromStorage = (): CartState => {
       if (cart && Array.isArray(cart.items)) {
         // Filter out any corrupted items and ensure basic properties exist
         const validItems = cart.items.filter((item: unknown) =>
-          item && typeof item === 'object' && 'product' in item && 'quantity' in item && typeof (item as Record<string, unknown>).product === 'object' && typeof ((item as Record<string, unknown>).product as Record<string, unknown>).id === 'string' && typeof (item as Record<string, unknown>).quantity === 'number'
+          item && typeof item === 'object' && 'product' in item && 'quantity' in item && typeof (item as Record<string, unknown>).product === 'object' && typeof ((item as Record<string, unknown>).product as Record<string, unknown>)._id === 'string' && typeof (item as Record<string, unknown>).quantity === 'number'
         );
 
         return {
@@ -106,7 +106,7 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action: PayloadAction<Product>) => {
       const existingItem = state.items.find(
-        (item) => item.product.id === action.payload.id
+        (item) => item.product._id === action.payload._id
       );
 
       if (existingItem) {
@@ -128,14 +128,14 @@ const cartSlice = createSlice({
     },
 
     removeFromCart: (state, action: PayloadAction<string>) => {
-      state.items = state.items.filter((item) => item.product.id !== action.payload);
+      state.items = state.items.filter((item) => item.product._id !== action.payload);
 
       calculateTotals(state);
       saveCartToStorage(state);
     },
 
     updateQuantity: (state, action: PayloadAction<{ id: string; quantity: number }>) => {
-      const item = state.items.find((item) => item.product.id === action.payload.id);
+      const item = state.items.find((item) => item.product._id === action.payload.id);
 
       if (item) {
         const newQuantity = Math.max(0, Number(action.payload.quantity) || 0);
@@ -149,7 +149,7 @@ const cartSlice = createSlice({
 
         // Remove item if quantity is 0
         if (item.quantity <= 0) {
-          state.items = state.items.filter((i) => i.product?.id !== action.payload.id);
+          state.items = state.items.filter((i) => i.product?._id !== action.payload.id);
         }
       }
 
@@ -158,7 +158,7 @@ const cartSlice = createSlice({
     },
 
     incrementQuantity: (state, action: PayloadAction<string>) => {
-      const item = state.items.find((item) => item.product.id === action.payload);
+      const item = state.items.find((item) => item.product._id === action.payload);
 
       if (item) {
         // التحقق من المخزون
@@ -174,13 +174,13 @@ const cartSlice = createSlice({
     },
 
     decrementQuantity: (state, action: PayloadAction<string>) => {
-      const item = state.items.find((item) => item.product.id === action.payload);
+      const item = state.items.find((item) => item.product._id === action.payload);
 
       if (item) {
         item.quantity -= 1;
 
         if (item.quantity === 0) {
-          state.items = state.items.filter((i) => i.product.id !== action.payload);
+          state.items = state.items.filter((i) => i.product._id !== action.payload);
         }
       }
 
@@ -255,7 +255,7 @@ export const selectDeliveryFee = (state: { cart: CartState }) => state.cart.deli
 export const selectAppliedCoupon = (state: { cart: CartState }) => state.cart.appliedCoupon;
 export const selectIsCartEmpty = (state: { cart: CartState }) => state.cart.items.length === 0;
 export const selectCartItemById = (state: { cart: CartState }, id: string) =>
-  state.cart?.items?.find((item) => item.product?.id === id);
+  state.cart?.items?.find((item) => item.product?._id === id);
 
 // ✅ Helper لحساب التوفير الكلي
 export const selectTotalSavings = (state: { cart: CartState }) => {
