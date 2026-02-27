@@ -228,7 +228,7 @@ const ProductReviews = ({ productId }: ProductReviewsProps) => {
               <button
                 type="button"
                 onClick={() => setShowReviewForm(false)}
-                className="px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
+                className="px-6 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-[#EEEFF1] dark:hover:bg-gray-700 transition-colors duration-200"
               >
                 {language === 'ar' ? 'إلغاء' : 'Cancel'}
               </button>

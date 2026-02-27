@@ -79,7 +79,7 @@ const CartPage = () => {
   if (items.length === 0) {
     return (
       <div
-        className="min-h-screen bg-gray-50 dark:bg-gray-900 py-16"
+        className="min-h-screen bg-[#EEEFF1] dark:bg-gray-900 py-16"
         dir={isRTL ? "rtl" : "ltr"}
       >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -119,7 +119,7 @@ const CartPage = () => {
 
   return (
     <div
-      className="min-h-screen bg-gray-50 dark:bg-gray-900 py-16"
+      className="min-h-screen bg-[#EEEFF1] dark:bg-gray-900 py-16"
       dir={isRTL ? "rtl" : "ltr"}
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -394,7 +394,7 @@ const CartPage = () => {
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowClearConfirm(false)}
-                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-[#EEEFF1] dark:hover:bg-gray-700 transition-colors"
                 >
                   {language === "ar" ? "إلغاء" : "Cancel"}
                 </button>

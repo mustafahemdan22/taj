@@ -103,7 +103,7 @@ const CheckoutPage = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-[#EEEFF1] dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
             {language === 'ar' ? 'يجب تسجيل الدخول أولاً' : 'Please login first'}
@@ -121,7 +121,7 @@ const CheckoutPage = () => {
 
   if (items.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-[#EEEFF1] dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
             {language === 'ar' ? 'السلة فارغة' : 'Your cart is empty'}
@@ -139,7 +139,7 @@ const CheckoutPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8">
+    <div className="min-h-screen bg-[#EEEFF1] dark:bg-gray-900 py-8">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -333,7 +333,7 @@ const CheckoutPage = () => {
                 </h2>
                 
                 <div className="space-y-3">
-                  <label className="flex items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700">
+                  <label className="flex items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:bg-[#EEEFF1] dark:hover:bg-gray-700">
                     <input
                       type="radio"
                       name="paymentMethod"
@@ -347,7 +347,7 @@ const CheckoutPage = () => {
                     </span>
                   </label>
                   
-                  <label className="flex items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700">
+                  <label className="flex items-center p-4 border border-gray-300 dark:border-gray-600 rounded-lg cursor-pointer hover:bg-[#EEEFF1] dark:hover:bg-gray-700">
                     <input
                       type="radio"
                       name="paymentMethod"

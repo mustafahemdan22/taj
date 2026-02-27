@@ -7,17 +7,19 @@ import CategoryGrid from '../components/CategoryGrid';
 import FeaturesSection from '../components/FeaturesSection';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { FiShoppingBag } from 'react-icons/fi';
+import { FiShoppingBag ,FiArrowUp } from 'react-icons/fi';
+
 
 export default function Page() {
   const { language } = useLanguage();
+
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <HeroSection />
       {/* Categories Section */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-800">
+      <section className="py-16 bg-[#D1D5DC] dark:bg-gray-900 ">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -66,6 +68,8 @@ export default function Page() {
             </Link>
           </motion.div>
         </div>
+         
+
       </section>
     </div>
   );

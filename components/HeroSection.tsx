@@ -6,41 +6,16 @@ import { FiShoppingBag, FiArrowRight, FiArrowLeft } from "react-icons/fi";
 import { useLanguage } from "../contexts/LanguageProvider";
 import style from "./HeroSection.module.css";
 import Image from "next/image";
-import img from "@/public/images/batch_C.H._Feb_13_2025_65526_6e2a620b-3d08-46fd-a9b5-8158b1561969_1645x.webp";
-import { useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
-import img2 from "@/public/images/Black-Crepe-Shayla-Hijab-600x600.jpg";
 const HeroSection = () => {
   const { language, isRTL } = useLanguage();
   const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-
-  // الصورة تتحرك أبطأ من المحتوى
-  const y = useTransform(scrollYProgress, [0, 1], ["0-%", "90%"]);
 
   return (
-    <section
-      ref={ref}
-      className="relative text-white py-20 lg:py-32 overflow-hidden min-h-screen"
-    >
-      <motion.div style={{ y }} className="absolute inset-0 -z-20">
-        <Image
-          src={img}
-          alt="Taj Scarf Background"
-          fill
-          priority
-          className="object-cover"
-        />
-      </motion.div>
+    <section ref={ref} className={style.hero}>
+      <div className={style.lear}>
 
-      <div className="absolute inset-0 bg-black/50 -z-10" />
-
-      <div
-        className={`${style.heroContent} relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`}
-      >
+      <div className={`${style.heroContent} relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
           <motion.div
@@ -114,26 +89,22 @@ const HeroSection = () => {
           >
             <div className="relative">
               <motion.div
-                animate={{ y: [-15, 15, -15] }}
+                animate={{ y: [-1, 15, -1] }}
                 transition={{
                   duration: 3,
                   repeat: Infinity,
                   ease: "easeInOut",
                 }}
-                className="w-64 h-64 mx-auto  ">
+                className="w-64 h-64 mx-auto  "
+              >
                 <div className="fixed inset-0 -z-20">
-                  <Image
-                    src={img2}
-                    alt="Taj Scarf Background"
-                    fill
-                    priority
-                    className="object-cover  rounded-full"
-                  />
+                 <h1>jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj</h1>
                 </div>
               </motion.div>
             </div>
           </motion.div>
         </div>
+      </div>
       </div>
     </section>
   );

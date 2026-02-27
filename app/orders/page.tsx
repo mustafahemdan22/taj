@@ -16,7 +16,7 @@ const OrderHistoryPage = () => {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <div className="min-h-screen bg-[#EEEFF1] dark:bg-gray-900 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
             {language === 'ar' ? 'يجب تسجيل الدخول أولاً' : 'Please login first'}
@@ -98,7 +98,7 @@ const OrderHistoryPage = () => {
 
   if (orders.length === 0) {
     return (
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-16">
+      <div className="min-h-screen bg-[#EEEFF1] dark:bg-gray-900 py-16">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -134,7 +134,7 @@ const OrderHistoryPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-16">
+    <div className="min-h-screen bg-[#EEEFF1] dark:bg-gray-900 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -169,7 +169,7 @@ const OrderHistoryPage = () => {
                 className={`px-4 py-2 rounded-lg font-medium transition-all duration-200 ${
                   selectedStatus === option.value
                     ? 'bg-zinc-700 text-white shadow-lg'
-                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'
+                    : 'bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-[#EEEFF1] dark:hover:bg-gray-700'
                 }`}
               >
                 {option.label}
@@ -192,10 +192,10 @@ const OrderHistoryPage = () => {
                 {/* Order Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    <h3 className="text-lg  bg-amber-300 font-semibold text-gray-900   dark:text-white">
                       {language === 'ar' ? 'طلب رقم' : 'Order'} #{order.orderNumber}
                     </h3>
-                    <div className="flex items-center mt-1 text-sm text-gray-600 dark:text-gray-400">
+                    <div className="flex  items-center mt-1 text-sm text-gray-600 dark:text-gray-400">
                       <FiCalendar className="w-4 h-4 mr-1 rtl:mr-0 rtl:ml-1" />
                       {new Date(order.orderDate).toLocaleDateString()}
                     </div>

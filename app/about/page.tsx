@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { FiTarget, FiUsers, FiAward, FiHeart } from 'react-icons/fi';
 import { useLanguage } from '../../contexts/LanguageProvider';
-import img from "@/public/images/buanajayaa98-islam-7445970_1920.jpg";
+import img from "@/public/images/smoky-hijab-scarf-1new.jpg";
 import Image from "next/image";
 
 const AboutPage = () => {
@@ -41,7 +41,7 @@ const AboutPage = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-16">
+    <div className="min-h-screen bg-[#D1D5DC] dark:bg-gray-900 py-16 ">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -65,10 +65,11 @@ const AboutPage = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden mb-16"
+          transition={{ duration: 0.6, ease: "easeInOut" }}
+whileHover={{ boxShadow: "0 0 25px rgba(161,161,170,0.5)" }}
+          className="bg-white dark:bg-gray-800 rounded-br-full  mb-16 shadow-md hover:shadow-2xl transition-all duration-500"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center ">
             <div className="p-8">
               <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
                 {language === 'ar' ? 'قصتنا' : 'Our Story'}
@@ -86,14 +87,15 @@ const AboutPage = () => {
                 }
               </p>
             </div>
-            <div className="relative h-80 w-full">
+            <div className="relative  h-80 w-full ">
               <Image 
                 src={img} 
                 alt="Taj Scarf" 
                 fill 
-                className="object-cover"
+                className=" object-center object-cover rounded-br-full"
               />
-              <div className="absolute inset-0 bg-[rgba(0,0,0,0.2)]"></div>
+
+              {/* <div className="absolute inset-0 bg-[rgba(0,0,0,0.)]"></div> */}
             </div>
           </div>
         </motion.div>
@@ -112,7 +114,7 @@ const AboutPage = () => {
       animate={{ opacity: 1, y: 0 }}
 transition={{ duration: 0.6, ease: "easeInOut" }}
 whileHover={{ boxShadow: "0 0 25px rgba(161,161,170,0.5)" }}
-      className="relative group bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 overflow-hidden min-h-[280px] flex flex-col items-center justify-start"
+      className="relative group bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-md hover:shadow-2xl transition-all duration-500 overflow-hidden min-h-70 flex flex-col items-center justify-start"
     >
       <div className="w-16 h-16 mx-auto mb-4 bg-zinc-200 dark:bg-zinc-900 rounded-full flex items-center justify-center">
         <value.icon className="w-8 h-8 text-zinc-700 dark:text-zinc-400" />

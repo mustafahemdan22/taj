@@ -31,7 +31,7 @@ const LoginPage = () => {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
+      <div className="min-h-screen flex items-center justify-center bg-[#EEEFF1] dark:bg-gray-900">
         <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-zinc-800"></div>
       </div>
     );
@@ -77,7 +77,7 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#EEEFF1] dark:bg-gray-900 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -255,7 +255,7 @@ const LoginPage = () => {
                 fallbackRedirectUrl="/"
                 signUpForceRedirectUrl="/"
               >
-                <div className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer">
+                <div className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-[#EEEFF1] dark:hover:bg-gray-600 cursor-pointer">
                   <span className="sr-only">
                     {language === "ar" ? "تسجيل الدخول بـ Google" : "Sign in with Google"}
                   </span>
@@ -286,7 +286,7 @@ const LoginPage = () => {
                 fallbackRedirectUrl="/"
                 signUpForceRedirectUrl="/"
               >
-                <div className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer">
+                <div className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-gray-700 text-sm font-medium text-gray-500 dark:text-gray-300 hover:bg-[#EEEFF1] dark:hover:bg-gray-600 cursor-pointer">
                   <span className="sr-only">
                     {language === "ar" ? "تسجيل الدخول بـ Facebook" : "Sign in with Facebook"}
                   </span>

@@ -1,0 +1,13 @@
+.features{
+   background-image: url("../public//images/categories//freepik__women-wearing-black-and-tan-head-scarves__64173.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+  
+}
+.lear{
+    background-color: rgba(0, 0, 0, 0.7);
+    height: 100vh;
+}

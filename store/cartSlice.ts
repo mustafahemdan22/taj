@@ -1,45 +1,6 @@
 // store/cartSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
-export interface Product {
-  // Required fields (إلزامية)
-  id: string;
-  name: string;
-  nameEn: string;
-  price: number;
-  image: string;
-  category: string;
-  brand: string;
-  unit: string;
-
-  // Optional fields (اختيارية)
-  description?: string;
-  descriptionEn?: string;
-  stock?: number;
-  compareAtPrice?: number;  // السعر قبل الخصم
-  discount?: number;        // نسبة الخصم
-  tags?: string[];          // ['حلال', 'عضوي']
-  rating?: number;          // تقييم المنتج
-  reviews?: number;         // عدد التقييمات
-  images?: string[]; // ✅ أضف هذا السطر - صور إضافية للمنتج
-
-}
-
-export interface CartItem {
-  product: Product;
-  quantity: number;
-}
-
-interface CartState {
-  items: CartItem[];
-  total: number;
-  itemCount: number;
-  discount: number;          // قيمة الخصم المطبق
-  subtotal: number;          // المجموع قبل الخصم
-  deliveryFee: number;       // رسوم التوصيل
-  appliedCoupon?: string;    // ✅ الكوبون المطبق
-}
-
+import type {  CartState, Product } from "@/types";
 const CART_STORAGE_KEY = 'grocery-cart';
 const FREE_DELIVERY_THRESHOLD = 200; // حد التوصيل المجاني
 const DELIVERY_FEE = 20; // رسوم التوصيل الثابتة
@@ -64,8 +25,8 @@ const loadCartFromStorage = (): CartState => {
       const cart = JSON.parse(serializedCart);
       if (cart && Array.isArray(cart.items)) {
         // Filter out any corrupted items and ensure basic properties exist
-        const validItems = cart.items.filter((item: any) =>
-          item && item.product && typeof item.product.id === 'string' && typeof item.quantity === 'number'
+        const validItems = cart.items.filter((item: unknown) =>
+          item && typeof item === 'object' && 'product' in item && 'quantity' in item && typeof (item as Record<string, unknown>).product === 'object' && typeof ((item as Record<string, unknown>).product as Record<string, unknown>).id === 'string' && typeof (item as Record<string, unknown>).quantity === 'number'
         );
 
         return {

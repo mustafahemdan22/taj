@@ -58,7 +58,7 @@ interface OrderProviderProps {
   children: React.ReactNode;
 }
 
-const STORAGE_KEY = 'panda-orders';
+const STORAGE_KEY = 'panda-order';
 
 export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
   const [orders, setOrders] = useState<Order[]>([]);
@@ -109,7 +109,7 @@ export const OrderProvider: React.FC<OrderProviderProps> = ({ children }) => {
   const generateOrderNumber = () => {
     const timestamp = Date.now().toString().slice(-6);
     const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
-    return `PANDA-${timestamp}-${random}`;
+    return `Taj Scarf-${timestamp}-${random}`;
   };
 
   const addOrder = (orderData: Omit<Order, 'id' | 'orderNumber' | 'orderDate'>) => {

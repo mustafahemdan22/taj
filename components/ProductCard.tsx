@@ -3,17 +3,18 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Product } from '../store/cartSlice';
+import { Product } from '@/types/index';
 import { useAppDispatch } from '../hooks/redux';
 import { addToCart } from '../store/cartSlice';
 import { FiShoppingCart, FiHeart, FiStar } from 'react-icons/fi';
 import { useLanguage } from '../contexts/LanguageProvider';
 import { useWishlist } from '../contexts/WishlistProvider';
+import { getProductImageUrl } from '../utils/productImage';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
 
 interface ProductCardProps {
-  product: Product;
+  product: any;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
@@ -22,27 +23,16 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const { isInWishlist, toggleWishlist } = useWishlist();
   const [imageError, setImageError] = useState(false);
 
-  const productName = language === 'ar' ? product.name : product.nameEn;
+  const productName = (language === 'ar' ? product.name : product.nameEn) || 'Product';
   const productDescription = language === 'ar' ? product.description : product.descriptionEn;
-  const isWishlisted = isInWishlist(product.id);
+  const productId = product._id ?? product.id;
+  const isWishlisted = isInWishlist(productId);
 
   const getProductEmoji = (category: string) => {
-    const emojiMap: Record<string, string> = {
-      cashmere: '🧣',
-      silk: '✨',
-      wool: '🐑',
-      pashmina: '💎',
-      designer: '🎨',
-      seasonal: '🌿',
-      bakery: '🧣',
-      spices: '✨',
-      'dry-grocery': '💎',
-      cleaning: '🎨',
-      grocery: '🧣',
-      vegetables: '🌿',
-    };
-    return emojiMap[category] || '🧣';
+    return "";
   };
+
+  const resolvedImage = getProductImageUrl(product);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -52,8 +42,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
     toast.success(
       language === 'ar' 
         ? `تم إضافة ${productName} إلى السلة` 
-        : `${productName} added to cart`,
-      { icon: '🛒' }
+        : `${productName} added to cart`
     );
   };
 
@@ -69,13 +58,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
           : 'تم إضافة المنتج للمفضلة'
         : isWishlisted
           ? 'Removed from wishlist'
-          : 'Added to wishlist',
-      { icon: isWishlisted ? '💔' : '❤️' }
+          : 'Added to wishlist'
     );
   };
 
   return (
-    <Link href={`/products/${product.id}`}>
+    <Link href={`/products/${productId}`}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -85,10 +73,10 @@ const ProductCard = ({ product }: ProductCardProps) => {
         className="bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden group cursor-pointer border border-gray-100 dark:border-gray-700"
       >
         {/* Product Image */}
-        <div className="relative h-56 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 overflow-hidden">
-          {product.image && !imageError ? (
+        <div className="relative aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-700 dark:to-gray-800 overflow-hidden">
+          {resolvedImage && !imageError ? (
             <Image
-              src={product.image}
+              src={resolvedImage}
               alt={productName}
               fill
               className="object-cover group-hover:scale-110 transition-transform duration-500"
@@ -97,9 +85,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
               loading="lazy"
             />
           ) : (
-            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
-              <span className="text-7xl opacity-80">
-                {getProductEmoji(product.category)}
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900">
+              <div className="relative w-24 h-24 mb-4 border-2 border-zinc-300 dark:border-zinc-700 rounded-full flex items-center justify-center opacity-40">
+                <FiShoppingCart className="w-10 h-10 text-zinc-400" />
+              </div>
+              <span className="text-zinc-400 dark:text-zinc-500 font-black tracking-widest text-xs uppercase">
+                Taj Scarf Premium
               </span>
             </div>
           )}
@@ -203,7 +194,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                   {product.price.toFixed(2)}
                 </span>
                 <span className="text-sm text-gray-600 dark:text-gray-400">
-                  {language === 'ar' ? 'ج.م' : 'EGP'}
+                  {language === 'ar' ? '' : 'EGP'}
                 </span>
               </div>
               {product.compareAtPrice && product.compareAtPrice > product.price && (
