@@ -28,28 +28,26 @@ const HeroSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+              className="text-5xl md:text-7xl lg:text-8xl font-serif font-black mb-8 leading-[1.1] tracking-tighter"
             >
-              {language === "ar" ? (
-                <>
-                  مرحباً بك في <span className={style.span}>تاج سكارف</span>
-                </>
-              ) : (
-                <>
-                  Welcome to <span className={style.span}>Taj Scarf</span>
-                </>
-              )}
+              <span className={style.span}>
+                {language === "ar" ? "تاج سكارف" : "Taj Scarf"}
+              </span>
+              <br />
+              <span className="text-2xl md:text-4xl font-sans font-light tracking-[0.3em] uppercase text-zinc-400 mt-4 block">
+                {language === "ar" ? "الفخامة في كل قطعة" : "Luxury in every piece"}
+              </span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="text-xl md:text-2xl mb-8 text-zinc-300 leading-relaxed"
+              className="text-lg md:text-xl mb-12 text-zinc-400 font-sans leading-relaxed tracking-wide max-w-xl"
             >
               {language === "ar"
-                ? "اكتشف مجموعتنا الحصرية من الأوشحة الفاخرة المصنوعة يدوياً من أرقى الأقمشة العالمية"
-                : "Discover our exclusive collection of handcrafted luxury scarves made from the world's finest fabrics"}
+                ? "اكتشف مجموعتنا الحصرية من الأوشحة المصنوعة يدوياً من أرقى الأقمشة العالمية"
+                : "Discover our exclusive collection of handcrafted luxury scarves made from the world's finest fabrics."}
             </motion.p>
 
             <motion.div

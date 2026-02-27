@@ -125,10 +125,7 @@ useEffect(() => {
             transition={{ duration: 0.5 }}
           >
             <Link href="/" className="flex items-center space-x-2 rtl:space-x-reverse">
-              {/* <div className="w-8 h-8 bg-zinc-800 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">🧣</span>
-              </div> */}
-              <span className="text-xl font-bold text-gray-900 dark:text-white">
+              <span className="text-2xl font-serif font-black tracking-tight text-gray-900 dark:text-white">
                 {language === 'ar' ? 'تاج سكارف' : 'Taj Scarf'}
               </span>
             </Link>
@@ -140,7 +137,7 @@ useEffect(() => {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`${style.navLink} flex items-center space-x-1 rtl:space-x-reverse text-gray-700 dark:text-gray-300 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors duration-200`}
+                className={`${style.navLink} flex items-center space-x-1 rtl:space-x-reverse text-gray-700 dark:text-gray-300 hover:text-zinc-900 dark:hover:text-white font-sans font-medium transition-colors duration-200`}
               >
                 <span>{item.text}</span>
               </Link>
