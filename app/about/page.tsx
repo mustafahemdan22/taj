@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { FiTarget, FiUsers, FiAward, FiHeart } from 'react-icons/fi';
 import { useLanguage } from '../../contexts/LanguageProvider';
-import img from "@/public/images/categories/OIP (11).jpeg";
 import Image from "next/image";
 
 const AboutPage = () => {
@@ -88,12 +87,12 @@ whileHover={{ boxShadow: "0 0 25px rgba(161,161,170,0.5)" }}
               </p>
             </div>
             <div className="relative  h-80 w-full ">
-              <Image 
-                src={img} 
-                alt="Taj Scarf" 
-                fill 
-                className=" object-center object-cover rounded-br-full"
-              />
+             <Image 
+  src="/images/categories/OIP (11).jpeg" 
+  alt="Taj Scarf" 
+  fill 
+  className="object-center object-cover rounded-br-full"
+/>
 
               {/* <div className="absolute inset-0 bg-[rgba(0,0,0,0.)]"></div> */}
             </div>
