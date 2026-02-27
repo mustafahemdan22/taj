@@ -3,8 +3,6 @@
 import { motion } from 'framer-motion';
 import { FiTruck, FiShield, FiClock, FiHeart } from 'react-icons/fi';
 import { useLanguage } from '../contexts/LanguageProvider';
-import Image from "next/image";
-import img from "@/public/images/smoky-hijab-scarf-1new.jpg"
 import style from "./FeaturesSection.module.css"
 
 
