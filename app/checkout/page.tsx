@@ -400,7 +400,7 @@ const CheckoutPage = () => {
 
               <div className="space-y-4 mb-6">
                 {items.map((item) => (
-                  <div key={item.product.id} className="flex items-center space-x-3 rtl:space-x-reverse">
+                  <div key={item.product._id} className="flex items-center space-x-3 rtl:space-x-reverse">
                     <div className="w-12 h-12 bg-gray-200 dark:bg-gray-700 rounded-lg flex items-center justify-center">
                       <FiShoppingCart className="w-5 h-5 text-gray-500" />
                     </div>

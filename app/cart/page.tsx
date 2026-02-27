@@ -176,7 +176,7 @@ const CartPage = () => {
 
                     return (
                       <motion.div
-                        key={item.product?.id || `item-${index}`}
+                        key={item.product?._id || `item-${index}`}
                         initial={{ opacity: 0, x: isRTL ? 20 : -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: isRTL ? -20 : 20, height: 0 }}
@@ -216,7 +216,7 @@ const CartPage = () => {
                           <button
                             onClick={() =>
                               handleQuantityChange(
-                                item.product?.id || "",
+                                item.product?._id || "",
                                 (Number(item.quantity) || 0) - 1
                               )
                             }
@@ -233,7 +233,7 @@ const CartPage = () => {
                           <button
                             onClick={() =>
                               handleQuantityChange(
-                                item.product?.id || "",
+                                item.product?._id || "",
                                 (Number(item.quantity) || 0) + 1
                               )
                             }
@@ -258,7 +258,7 @@ const CartPage = () => {
                             {language === "ar" ? "ج.م" : "EGP"}
                           </div>
                           <button
-                            onClick={() => handleRemoveItem(item.product?.id || "")}
+                            onClick={() => handleRemoveItem(item.product?._id || "")}
                             className="text-red-600 hover:text-red-700 p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                             aria-label="Remove item"
                           >

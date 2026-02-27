@@ -7,7 +7,7 @@ export function getProductImageUrl(product: any): string {
     const raw =
         product?.image ||
         (product?.images && product.images.length > 0 ? product.images[0] : null) ||
-        '/images/categories/all.png';
+        '/images/all.png';
 
     return optimizeCloudinaryUrl(raw);
 }
@@ -25,7 +25,7 @@ export function getProductImages(product: any): string[] {
     }
 
     if (images.length === 0) {
-        images.push('/images/categories/all.png');
+        images.push('/images/all.png');
     }
 
     return images.map(optimizeCloudinaryUrl);

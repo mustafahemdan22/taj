@@ -1,14 +1,15 @@
 .hero {
-    background-image: url("../public//images/categories/hero.jpg");
+    background-image: url("/images/hero.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     min-height: 100vh;
     position: relative;
-    
+
 }
-.lear{
+
+.lear {
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.6);
 }
@@ -39,12 +40,14 @@
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    color: transparent; /* Fallback for older browsers */
+    color: transparent;
+    /* Fallback for older browsers */
 }
 
 /* Add mobile responsiveness */
 @media (max-width: 768px) {
     .heroSection {
-        background-attachment: scroll; /* Better mobile performance */
+        background-attachment: scroll;
+        /* Better mobile performance */
     }
 }

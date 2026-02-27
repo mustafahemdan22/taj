@@ -299,7 +299,7 @@ const CategoriesPage = () => {
             <div className={`grid gap-8 ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4" : "grid-cols-1"}`}>
               {currentProducts.map((product: Product, index: number) => (
                 <motion.div 
-                  key={(product._id ?? product.id ?? index)} 
+                  key={product._id} 
                   initial={{ opacity: 0, y: 40 }} 
                   whileInView={{ opacity: 1, y: 0 }} 
                   viewport={{ once: true, margin: "-100px" }} 

@@ -46,7 +46,7 @@ const ProductDetailPage = () => {
 
   const product = useMemo(() => {
     if (!allProducts) return null;
-    return allProducts.find((p: any) => p._id === productId || p.id === productId) || null;
+    return allProducts.find((p: any) => p._id === productId) || null;
   }, [allProducts, productId]);
 
   const isLoading = allProducts === undefined;

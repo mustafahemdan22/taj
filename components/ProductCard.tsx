@@ -25,7 +25,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
   const productName = (language === 'ar' ? product.name : product.nameEn) || 'Product';
   const productDescription = language === 'ar' ? product.description : product.descriptionEn;
-  const productId = product._id ?? product.id;
+  const productId = product._id;
   const isWishlisted = isInWishlist(productId);
 
   const getProductEmoji = (category: string) => {

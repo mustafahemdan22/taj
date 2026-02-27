@@ -4,9 +4,6 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useLanguage } from '../../contexts/LanguageProvider';
-import img from "@/public/images/categories/Black-Crepe-Shayla-Hijab-600x600.jpg";
-import img2 from "@/public/images/categories/OIP (10).jpeg";
-import img3 from "@/public/images/categories/OIP (11).jpeg";
 
 const BlogPage = () => {
   const { language } = useLanguage();
@@ -18,7 +15,7 @@ const BlogPage = () => {
       excerpt: language === 'ar'
         ? 'تعلمي كيف تجعلين وشاحك جزءًا أنيقًا ومميزًا من كل إطلالة يومية مع taj_scarf.'
         : 'Learn how to make your scarf an elegant and standout part of every daily outfit with taj_scarf.',
-      image: img,
+      image: "/images/Black-Crepe-Shayla-Hijab-600x600.jpg",
       href: '/blog/smart-shopping'
     },
     {
@@ -27,7 +24,7 @@ const BlogPage = () => {
       excerpt: language === 'ar'
         ? 'استكشف الفرق بين الحرير والكشمير والباشمينا واختر الأنسب من مجموعتنا الراقية.'
         : 'Discover the difference between silk, cashmere, and pashmina, and choose the perfect one from our premium collection.',
-      image: img2,
+      image: "/images/OIP (10).jpeg",
       href: '/blog/fresh-produce'
     },
     {
@@ -36,7 +33,7 @@ const BlogPage = () => {
       excerpt: language === 'ar'
         ? 'تعلمي أفضل طرق العناية بأوشحتك للحفاظ على نعومتها وجودتها لسنوات طويلة مع taj_scarf.'
         : 'Learn the best ways to care for your scarves and maintain their softness and quality for years with taj_scarf.',
-      image: img3,
+      image: "/images/OIP (11).jpeg",
       href: '/blog/food-storage'
     }
   ];
@@ -83,7 +80,6 @@ const BlogPage = () => {
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  placeholder="blur"
                   priority={index === 0}
                 />
               </div>

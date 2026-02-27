@@ -19,16 +19,16 @@ export const seedProducts = mutation({
       "chiffon",
     ];
 
-    // Map categories to existing images in public/images/categories/
+    // Map categories to existing images in public/images/
     const categoryImages: Record<string, string> = {
-      cashmere: "/images/categories/cashmere.png",
-      silk: "/images/categories/silk.png",
-      wool: "/images/categories/wool.png",
-      pashmina: "/images/categories/pashmina.png",
-      cotton: "/images/categories/cotton.png",
-      acrylic: "/images/categories/all.png",
-      infinity: "/images/categories/all.png",
-      chiffon: "/images/categories/all.png",
+      cashmere: "/images/cashmere.png",
+      silk: "/images/silk.png",
+      wool: "/images/wool.png",
+      pashmina: "/images/pashmina.png",
+      cotton: "/images/cotton.png",
+      acrylic: "/images/all.png",
+      infinity: "/images/all.png",
+      chiffon: "/images/all.png",
     };
 
     for (const category of categories) {
@@ -37,7 +37,7 @@ export const seedProducts = mutation({
           name: `${category} scarf ${i}`,
           nameEn: `${category} scarf ${i}`,
           price: 200 + i * 10,
-          image: categoryImages[category] || "/images/categories/all.png",
+          image: categoryImages[category] || "/images/all.png",
           category,
           description: `Premium ${category} scarf #${i}`,
           descriptionEn: `Premium ${category} scarf #${i}`,

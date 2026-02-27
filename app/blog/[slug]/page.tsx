@@ -6,9 +6,6 @@ import { useLanguage } from '../../../contexts/LanguageProvider';
 import { FiArrowLeft, FiArrowRight, FiCalendar, FiUser } from 'react-icons/fi';
 import styles from './BlogPost.module.css';
 import { useEffect, useState ,use } from 'react';
-import img from "@/public/images/categories/Black-Crepe-Shayla-Hijab-600x600.jpg";
-import img2 from "@/public/images/categories/OIP (10).jpeg";
-import img3 from "@/public/images/categories/OIP (11).jpeg";
 // بيانات المقالات
 const blogPosts = {
   'smart-shopping': {
@@ -16,7 +13,7 @@ const blogPosts = {
       ar: 'كيف تنسقين الوشاح مع إطلالتك اليومية',
       en: 'How to Style Your Scarf with Everyday Outfits'
     },
-    image: img,
+    image: "/images/Black-Crepe-Shayla-Hijab-600x600.jpg",
     author: {
       ar: 'فريق تاج سكارف',
       en: 'Taj Scarf Team'
@@ -81,7 +78,7 @@ const blogPosts = {
       ar: 'دليلك الشامل لأنواع الأقمشة الفاخرة',
       en: 'Your Complete Guide to Luxury Fabrics'
     },
-    image: img2,
+    image: "/images/OIP (10).jpeg",
     author: {
       ar: 'نورا حسن',
       en: 'Noura Hassan'
@@ -152,7 +149,7 @@ const blogPosts = {
       ar: 'كيفية العناية بأوشحتك الفاخرة',
       en: 'How to Care for Your Luxury Scarves'
     },
-    image: img3,
+    image: "/images/OIP (11).jpeg",
     author: {
       ar: 'أحمد محمد',
       en: 'Ahmed Mohamed'

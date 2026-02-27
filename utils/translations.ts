@@ -1,15 +1,15 @@
 // d:/New folder/new/standard/utils/translations.ts
 
 export const categoryTranslations: Record<string, { ar: string; en: string; image: string }> = {
-    all: { ar: 'الكل', en: 'All Products', image: '/images/categories/all.png' },
-    cashmere: { ar: 'كشمير', en: 'Cashmere', image: '/images/categories/cashmere.png' },
-    silk: { ar: 'حرير', en: 'Silk', image: '/images/categories/silk.png' },
-    wool: { ar: 'صوف', en: 'Wool', image: '/images/categories/wool.png' },
-    pashmina: { ar: 'باشمينا', en: 'Pashmina', image: '/images/categories/pashmina.png' },
-    cotton: { ar: 'قطن', en: 'Cotton', image: '/images/categories/cotton.png' },
-    acrylic: { ar: 'أكريليك', en: 'Acrylic', image: '/images/categories/voal_scarf_printed.jpg' },
-    infinity: { ar: 'إنفينيتي', en: 'Infinity', image: '/images/categories/smoky-hijab-scarf-1new.jpg' },
-    chiffon: { ar: 'شيفون', en: 'Chiffon', image: '/images/categories/green-scarf-chiffon-1.jpg' },
+    all: { ar: 'الكل', en: 'All Products', image: '/images/all.png' },
+    cashmere: { ar: 'كشمير', en: 'Cashmere', image: '/images/cashmere.png' },
+    silk: { ar: 'حرير', en: 'Silk', image: '/images/silk.png' },
+    wool: { ar: 'صوف', en: 'Wool', image: '/images/wool.png' },
+    pashmina: { ar: 'باشمينا', en: 'Pashmina', image: '/images/pashmina.png' },
+    cotton: { ar: 'قطن', en: 'Cotton', image: '/images/cotton.png' },
+    acrylic: { ar: 'أكريليك', en: 'Acrylic', image: '/images/voal_scarf_printed.jpg' },
+    infinity: { ar: 'إنفينيتي', en: 'Infinity', image: '/images/smoky-hijab-scarf-1new.jpg' },
+    chiffon: { ar: 'شيفون', en: 'Chiffon', image: '/images/green-scarf-chiffon-1.jpg' },
 };
 
 export const getCategoryData = (category: string) => {

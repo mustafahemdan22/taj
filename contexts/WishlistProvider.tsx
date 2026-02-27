@@ -52,7 +52,7 @@ export const WishlistProvider: React.FC<WishlistProviderProps> = ({ children }) 
   // ✅ استخدم useCallback للدوال
   const addToWishlist = useCallback((product: Product) => {
     setWishlist(prev => {
-      if (prev.find(item => item.id === product.id)) {
+      if (prev.find(item => item._id === product._id)) {
         return prev;
       }
       return [...prev, product];
@@ -60,21 +60,21 @@ export const WishlistProvider: React.FC<WishlistProviderProps> = ({ children }) 
   }, []);
 
   const removeFromWishlist = useCallback((productId: string) => {
-    setWishlist(prev => prev.filter(item => item.id !== productId));
+    setWishlist(prev => prev.filter(item => item._id !== productId));
   }, []);
 
-  const clearWishlist = useCallback(() => {
+  const clearWishlist = useCallback(( ) => {
     setWishlist([]);
   }, []);
 
   const isInWishlist = useCallback((productId: string) => {
-    return wishlist.some(item => item.id === productId);
+    return wishlist.some(item => item._id === productId);
   }, [wishlist]); // ✅ يعتمد على wishlist
 
   const toggleWishlist = useCallback((product: Product) => {
     setWishlist(prev => {
-      if (prev.some(item => item.id === product.id)) {
-        return prev.filter(item => item.id !== product.id);
+      if (prev.some(item => item._id === product._id)) {
+        return prev.filter(item => item._id !== product._id);
       }
       return [...prev, product];
     });
