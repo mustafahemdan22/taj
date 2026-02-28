@@ -13,21 +13,17 @@ export async function POST(request: NextRequest) {
             );
         }
 
-        const uploadedUrls: string[] = [];
+        const uploadedPublicIds: string[] = [];
 
         for (const file of files) {
             const bytes = await file.arrayBuffer();
             const buffer = Buffer.from(bytes);
 
-            // Upload to Cloudinary with auto format & quality optimization
             const result = await new Promise<any>((resolve, reject) => {
                 const uploadStream = cloudinary.uploader.upload_stream(
                     {
                         folder: 'taj-scarf/products',
                         resource_type: 'image',
-                        transformation: [
-                            { quality: 'auto', fetch_format: 'auto' },
-                        ],
                     },
                     (error, result) => {
                         if (error) reject(error);
@@ -37,12 +33,12 @@ export async function POST(request: NextRequest) {
                 uploadStream.end(buffer);
             });
 
-            if (result?.secure_url) {
-                uploadedUrls.push(result.secure_url);
+            if (result?.public_id) {
+                uploadedPublicIds.push(result.public_id);
             }
         }
 
-        return NextResponse.json({ urls: uploadedUrls });
+        return NextResponse.json({ publicIds: uploadedPublicIds });
     } catch (error) {
         console.error('Cloudinary upload error:', error);
         return NextResponse.json(

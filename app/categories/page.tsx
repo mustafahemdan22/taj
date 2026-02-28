@@ -9,7 +9,8 @@ import { FiSearch, FiChevronLeft, FiChevronRight, FiFilter, FiX, FiGrid, FiList 
 import { useQuery } from "convex/react"; // ✅ FIXED: Import useQuery
 import { api } from "@/convex/_generated/api";
 import { Product } from "@/types";
-import { getCategoryName } from "../../utils/translations";
+import { getCategoryName } from "@/convex/translations";
+import Image from "next/image";
 
 // ✅ FIXED: Custom hook for products query
 const useProducts = () => useQuery(api.functions.products.getProducts);

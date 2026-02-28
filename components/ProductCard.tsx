@@ -8,13 +8,13 @@ import { useAppDispatch } from '../hooks/redux';
 import { addToCart } from '../store/cartSlice';
 import { FiShoppingCart, FiHeart, FiStar } from 'react-icons/fi';
 import { useLanguage } from '../contexts/LanguageProvider';
-import { useWishlist } from '../contexts/WishlistProvider';
+import { useWishlist } from "../contexts/WishlistProvider";
 import { getProductImageUrl } from '../utils/productImage';
 import toast from 'react-hot-toast';
 import { useState } from 'react';
 
 interface ProductCardProps {
-  product: any;
+  product: Product;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
@@ -27,10 +27,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const productDescription = language === 'ar' ? product.description : product.descriptionEn;
   const productId = product._id;
   const isWishlisted = isInWishlist(productId);
-
-  const getProductEmoji = (category: string) => {
-    return "";
-  };
 
   const resolvedImage = getProductImageUrl(product);
 
@@ -85,12 +81,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
               loading="lazy"
             />
           ) : (
-            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900">
-              <div className="relative w-24 h-24 mb-4 border-2 border-zinc-300 dark:border-zinc-700 rounded-full flex items-center justify-center opacity-40">
-                <FiShoppingCart className="w-10 h-10 text-zinc-400" />
-              </div>
-              <span className="text-zinc-400 dark:text-zinc-500 font-black tracking-widest text-xs uppercase">
-                Taj Scarf Premium
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-xl m-2">
+              <span className="text-gray-400 dark:text-gray-600 font-bold text-xs uppercase tracking-tighter">
+                Image Coming Soon
               </span>
             </div>
           )}

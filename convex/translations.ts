@@ -1,4 +1,4 @@
-// d:/New folder/new/standard/utils/translations.ts
+// convex/translations.ts
 
 export const categoryTranslations: Record<string, { ar: string; en: string; image: string }> = {
     all: { ar: 'الكل', en: 'All Products', image: '/images/all.png' },

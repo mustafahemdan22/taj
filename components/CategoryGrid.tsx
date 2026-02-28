@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useLanguage } from '../contexts/LanguageProvider';
-import { getCategoryData } from '../utils/translations';
+import { getCategoryData } from '@/convex/translations';
 import Image from "next/image";
 
 const CategoryGrid = () => {

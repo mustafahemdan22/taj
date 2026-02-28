@@ -162,16 +162,16 @@ const Footer = () => {
               <div className="flex items-center space-x-3 rtl:space-x-reverse">
                 <FiMapPin className="w-5 h-5 text-gray-500 flex-shrink-0" />
                 <span className="text-gray-700 dark:text-gray-300">
-                  {language === "ar" ? "القاهرة، مصر" : "Cairo, Egypt"}
+                  {language === "ar" ? "الاسكندريه" : "Cairo, Egypt"}
                 </span>
               </div>
               <div className="flex items-center space-x-3 rtl:space-x-reverse">
                 <FiPhone className="w-5 h-5 text-gray-500 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">+20 100 000 0000</span>
+                <span className="text-gray-700 dark:text-gray-300">+20 1553947102</span>
               </div>
               <div className="flex items-center space-x-3 rtl:space-x-reverse">
                 <FiMail className="w-5 h-5 text-gray-500 flex-shrink-0" />
-                <span className="text-gray-700 dark:text-gray-300">hello@tajscarf.com</span>
+                <span className="text-gray-700 dark:text-gray-300">[EMAIL_ADDRESS]</span>
               </div>
             </div>
           </motion.div>

@@ -154,7 +154,7 @@ useEffect(() => {
             <button onClick={toggleTheme} title={theme === 'light' ? (language === 'ar' ? 'الوضع الليلي' : 'Dark Mode') : (language === 'ar' ? 'الوضع النهاري' : 'Light Mode')} className="p-2 rounded-lg  text-gray-700 dark:text-gray-300 hover:scale-125 transition-transform duration-300">
               {theme === 'light' ? <FiMoon className="w-5 h-5" /> : <FiSun className="w-5 h-5" />}
             </button>
-             <Link href="/wishlist" className="relative p-2 rounded-lg bg-pink-100 dark:bg-pink-900 text-pink-700 dark:text-pink-300">
+             <Link href="/wishlist" className="relative p-2 rounded-full bg-pink-100 dark:bg-pink-900 text-pink-700 dark:text-pink-300">
               <FiHeart className="w-5 h-5" />
               {isMounted && wishlist.length > 0 && <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">{wishlist.length}</span>}
             </Link>
@@ -253,7 +253,7 @@ className="fixed bottom-1 left-3 z-50 "   >
   aria-label={link.label}
   className="group hover:text-white/80 transition-colors  -m-1 rounded-full"
 >
-  <link.icon className="w-6 h-6 mt-2  transition-transform duration-300 group-hover:scale-125 text-black dark:text-white  " />
+  <link.icon className="w-6 h-6 mt-5  transition-transform duration-300 group-hover:scale-125 text-black dark:text-white  " />
 </Link>
           ))}
           

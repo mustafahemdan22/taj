@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "Taj Scarf",
     images: [
       {
-        url: "/images/og-image.jpg",
+        url: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772210981/taj-scarf/static/hero.jpg",
         width: 1200,
         height: 630,
       },
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Taj Scarf — Luxury Scarves & Accessories",
     description: "Exquisite handcrafted scarves and luxury accessories.",
-    images: ["/images/og-image.jpg"],
+    images: ["https://res.cloudinary.com/dfq1xxerr/image/upload/v1772210981/taj-scarf/static/hero.jpg"],
   },
 };
 

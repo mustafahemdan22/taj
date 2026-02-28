@@ -1,4 +1,6 @@
 import { mutation } from "../_generated/server";
+import { categoryHeroImages } from "../constants";
+import { getCategoryName } from "../translations";
 
 export const seedProducts = mutation({
   args: {},
@@ -19,33 +21,33 @@ export const seedProducts = mutation({
       "chiffon",
     ];
 
-    // Map categories to existing images in public/images/
-    const categoryImages: Record<string, string> = {
-      cashmere: "/images/cashmere.png",
-      silk: "/images/silk.png",
-      wool: "/images/wool.png",
-      pashmina: "/images/pashmina.png",
-      cotton: "/images/cotton.png",
-      acrylic: "/images/all.png",
-      infinity: "/images/all.png",
-      chiffon: "/images/all.png",
-    };
+    const styles = ["Classic", "Modern", "Handcrafted", "Elegant", "Vintage", "Urban", "Royal", "Signature", "Bohemian", "Minimalist"];
+    const patterns = ["Solid", "Geometric", "Floral", "Striped", "Embroidery", "Abstract", "Paisley", "Checkered"];
+    const qualities = ["Premium", "Pure", "Artisan", "Luxury", "Soft Touch", "Fine", "Exquisite"];
 
     for (const category of categories) {
       for (let i = 1; i <= 20; i++) {
+        const style = styles[i % styles.length];
+        const pattern = patterns[(i + 2) % patterns.length];
+        const quality = qualities[(i + 5) % qualities.length];
+
+        const nameEn = `${quality} ${style} ${category.charAt(0).toUpperCase() + category.slice(1)} Scarf`;
+        const nameAr = `${getCategoryName(category, "ar")} ${style} فاخر`;
+
         await ctx.db.insert("products", {
-          name: `${category} scarf ${i}`,
-          nameEn: `${category} scarf ${i}`,
-          price: 200 + i * 10,
-          image: categoryImages[category] || "/images/all.png",
+          name: nameAr,
+          nameEn: nameEn,
+          price: 150 + Math.floor(Math.random() * 350),
+          image: `https://loremflickr.com/600/800/scarf,fashion?lock=${Math.floor(Math.random() * 1000)}`, // Varying high-quality placeholder
+          images: [],
           category,
-          description: `Premium ${category} scarf #${i}`,
-          descriptionEn: `Premium ${category} scarf #${i}`,
+          description: `وشاح ${getCategoryName(category, "ar")} عالي الجودة بتصميم ${pattern} فريد. مثالي لجميع المناسبات ويوفر لمسة من الأناقة لمظهرك.`,
+          descriptionEn: `This ${quality} ${category} scarf features a beautiful ${pattern} pattern. Hand-picked for its exceptional softness and durability, it's the perfect accessory to elevate your style.`,
           brand: "Taj Scarf",
-          stock: 10 + i,
+          stock: 15 + Math.floor(Math.random() * 20),
           unit: "Piece",
-          rating: 4,
-          reviews: Math.floor(Math.random() * 50),
+          rating: 4 + (Math.random() > 0.5 ? 1 : 0),
+          reviews: 5 + Math.floor(Math.random() * 45),
         });
       }
     }

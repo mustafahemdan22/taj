@@ -13,7 +13,7 @@ const blogPosts = {
       ar: 'كيف تنسقين الوشاح مع إطلالتك اليومية',
       en: 'How to Style Your Scarf with Everyday Outfits'
     },
-    image: "/images/Black-Crepe-Shayla-Hijab-600x600.jpg",
+    image: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772210601/taj-scarf/static/Black-Crepe-Shayla-Hijab-600x600.jpg",
     author: {
       ar: 'فريق تاج سكارف',
       en: 'Taj Scarf Team'
@@ -78,7 +78,7 @@ const blogPosts = {
       ar: 'دليلك الشامل لأنواع الأقمشة الفاخرة',
       en: 'Your Complete Guide to Luxury Fabrics'
     },
-    image: "/images/OIP (10).jpeg",
+    image: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772210603/taj-scarf/static/OIP_10.jpg",
     author: {
       ar: 'نورا حسن',
       en: 'Noura Hassan'
@@ -149,7 +149,7 @@ const blogPosts = {
       ar: 'كيفية العناية بأوشحتك الفاخرة',
       en: 'How to Care for Your Luxury Scarves'
     },
-    image: "/images/OIP (11).jpeg",
+    image: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772210603/taj-scarf/static/OIP_11.jpg",
     author: {
       ar: 'أحمد محمد',
       en: 'Ahmed Mohamed'

@@ -49,6 +49,10 @@ const ProductDetailPage = () => {
     return allProducts.find((p: any) => p._id === productId) || null;
   }, [allProducts, productId]);
 
+  const productImages = useMemo(() => {
+    return getProductImages(product);
+  }, [product]);
+
   const isLoading = allProducts === undefined;
 
   if (isLoading) {
@@ -114,9 +118,6 @@ const ProductDetailPage = () => {
     );
   }
 
-  const productImages = useMemo(() => {
-    return getProductImages(product);
-  }, [product]);
 
   const productImage = productImages[selectedImage] || productImages[0];
   const productName = language === "ar" ? product.name : product.nameEn;
