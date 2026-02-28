@@ -12,8 +12,16 @@ import { OrderProvider } from "@/contexts/OrderProvider";
 import { Toaster } from "sonner";
 import { store } from "@/store";
 
+const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
+
+if (!convexUrl) {
+  if (typeof window !== "undefined") {
+    console.error("NEXT_PUBLIC_CONVEX_URL is not defined. Please check your environment variables.");
+  }
+}
+
 const convex = new ConvexReactClient(
-  process.env.NEXT_PUBLIC_CONVEX_URL!
+  convexUrl || "https://missing-url.convex.cloud"
 );
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
