@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useLanguage } from '../contexts/LanguageProvider';
-import { getCategoryData } from '@/convex/translations';
+import { getCategoryAssets } from '@/utils/categoryImages';
 import Image from "next/image";
 
 const CategoryGrid = () => {
@@ -46,7 +46,6 @@ const CategoryGrid = () => {
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 "
     >
       {categories.map((category) => {
-        const categoryData = getCategoryData(category.id);
         return (
           <motion.div
             key={category.id}
@@ -58,7 +57,7 @@ const CategoryGrid = () => {
             <Link href={`/categories/${category.id}`}>
               <div className="absolute inset-0">
                 <Image
-                  src={categoryData.image}
+                  src={getCategoryAssets(category.id).header}
                   alt={category.name}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-700"

@@ -16,6 +16,9 @@ export interface Product {
   unit?: string;
   description?: string;
   descriptionEn?: string;
+  subtitle?: string;        // Optional subtitle for category layouts
+  badge?: string;           // e.g. "Best Seller", "New"
+  dynamicPrice?: string;    // Override string from CategoryAssets
   stock?: number;
   compareAtPrice?: number;  // السعر قبل الخصم
   discount?: number;        // نسبة الخصم

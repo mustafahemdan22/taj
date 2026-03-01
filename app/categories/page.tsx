@@ -10,10 +10,13 @@ import { useQuery } from "convex/react"; // ✅ FIXED: Import useQuery
 import { api } from "@/convex/_generated/api";
 import { Product } from "@/types";
 import { getCategoryName } from "@/convex/translations";
+import { getCategoryAssets } from "@/utils/categoryImages";
 import Image from "next/image";
 
 // ✅ FIXED: Custom hook for products query
 const useProducts = () => useQuery(api.functions.products.getProducts);
+
+
 
 // Pagination Component
 interface PaginationProps {
@@ -298,19 +301,43 @@ const CategoriesPage = () => {
         <motion.section layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="relative mb-16">
           {filteredProducts.length > 0 ? (
             <div className={`grid gap-8 ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4" : "grid-cols-1"}`}>
-              {currentProducts.map((product: Product, index: number) => (
-                <motion.div 
-                  key={product._id} 
-                  initial={{ opacity: 0, y: 40 }} 
-                  whileInView={{ opacity: 1, y: 0 }} 
-                  viewport={{ once: true, margin: "-100px" }} 
-                  transition={{ duration: 0.5, delay: index * 0.05 }} 
-                  whileHover={{ y: -12 }}
-                >
-                  <ProductCard product={product} />
-                  
-                </motion.div>
-              ))}
+              {currentProducts.map((product: Product, index: number) => {
+                const categoryAssets = getCategoryAssets(product.category);
+                const mappedImageArray = categoryAssets.products;
+                const hasMappedImages = mappedImageArray && mappedImageArray.length > 0;
+                
+                const mappedProduct = hasMappedImages 
+                  ? mappedImageArray[index % mappedImageArray.length] 
+                  : null;
+
+                const renderReadyProduct: Product = {
+                  ...product,
+                  name: mappedProduct?.title 
+                    ? mappedProduct.title 
+                    : (language === "ar" ? `${getCategoryName(product.category, "ar")} تصميم رقم ${index + 1}` : product.name),
+                  nameEn: mappedProduct?.title 
+                    ? mappedProduct.title 
+                    : (language === "en" ? `${getCategoryName(product.category, "en")} Design #${index + 1}` : product.nameEn),
+                  image: mappedProduct?.image || product.image,
+                  subtitle: mappedProduct?.subtitle,
+                  badge: mappedProduct?.badge,
+                  dynamicPrice: mappedProduct?.price,
+                };
+
+                return (
+                  <motion.div 
+                    key={product._id} 
+                    initial={{ opacity: 0, y: 40 }} 
+                    whileInView={{ opacity: 1, y: 0 }} 
+                    viewport={{ once: true, margin: "-100px" }} 
+                    transition={{ duration: 0.5, delay: index * 0.05 }} 
+                    whileHover={{ y: -12 }}
+                  >
+                    <ProductCard product={renderReadyProduct} />
+                    
+                  </motion.div>
+                );
+              })}
             </div>
           ) : (
             <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="col-span-full flex flex-col items-center justify-center py-32 text-center">

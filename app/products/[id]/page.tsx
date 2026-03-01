@@ -28,6 +28,8 @@ import Link from "next/link";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import { getProductImages } from "../../../utils/productImage";
+import { getCategoryAssets } from "../../../utils/categoryImages";
+import { getCategoryName } from "../../../convex/translations";
 
 const ProductDetailPage = () => {
   const params = useParams();
@@ -44,10 +46,39 @@ const ProductDetailPage = () => {
   // ✅ FIXED: Fetch products from Convex instead of non-existent data/products module
   const allProducts = useQuery(api.functions.products.getProducts);
 
-  const product = useMemo(() => {
+  const baseProduct = useMemo(() => {
     if (!allProducts) return null;
     return allProducts.find((p: any) => p._id === productId) || null;
   }, [allProducts, productId]);
+
+  const product = useMemo(() => {
+    if (!allProducts || !baseProduct) return null;
+    
+    const categoryProducts = allProducts.filter((p: any) => p.category === baseProduct.category);
+    const index = Math.max(0, categoryProducts.findIndex((p: any) => p._id === baseProduct._id));
+    
+    const categoryAssets = getCategoryAssets(baseProduct.category);
+    const mappedImageArray = categoryAssets.products;
+    const hasMappedImages = mappedImageArray && mappedImageArray.length > 0;
+    
+    const mappedProduct = hasMappedImages 
+      ? mappedImageArray[index % mappedImageArray.length] 
+      : null;
+
+    return {
+      ...baseProduct,
+      name: mappedProduct?.title 
+        ? mappedProduct.title 
+        : (language === "ar" ? `${getCategoryName(baseProduct.category, "ar")} تصميم رقم ${index + 1}` : baseProduct.name),
+      nameEn: mappedProduct?.title 
+        ? mappedProduct.title 
+        : (language === "en" ? `${getCategoryName(baseProduct.category, "en")} Design #${index + 1}` : baseProduct.nameEn),
+      image: mappedProduct?.image || baseProduct.image,
+      subtitle: mappedProduct?.subtitle,
+      badge: mappedProduct?.badge,
+      dynamicPrice: mappedProduct?.price,
+    };
+  }, [allProducts, baseProduct, language]);
 
   const productImages = useMemo(() => {
     return getProductImages(product);
@@ -123,6 +154,7 @@ const ProductDetailPage = () => {
   const productName = language === "ar" ? product.name : product.nameEn;
   const productDescription =
     language === "ar" ? product.description : product.descriptionEn;
+  const productSubtitle = product.subtitle;
 
   const pid = product._id;
   const cartItem = cartItems.find((item: any) => item.product._id === pid);
@@ -264,6 +296,13 @@ const ProductDetailPage = () => {
               <div className="absolute top-6 left-6 px-4 py-2 bg-white/90 dark:bg-black/70 backdrop-blur-md rounded-xl shadow-xl z-10 border border-white/20">
                 <span className="text-sm font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">{product.category}</span>
               </div>
+
+              {/* Dynamic Badge */}
+              {product.badge && (
+                <div className="absolute top-6 right-6 px-4 py-2 bg-zinc-900 border border-zinc-700 backdrop-blur-md rounded-xl shadow-xl z-10">
+                  <span className="text-sm font-bold text-white tracking-wider">{product.badge}</span>
+                </div>
+              )}
             </div>
 
             {/* Thumbnail Gallery */}
@@ -303,9 +342,14 @@ const ProductDetailPage = () => {
           >
             {/* Title & Rating */}
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-3 leading-tight">
+              <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2 leading-tight">
                 {productName}
               </h1>
+              {productSubtitle && (
+                <h2 className="text-lg font-medium text-gray-500 dark:text-gray-400 mb-4">
+                  {productSubtitle}
+                </h2>
+              )}
               <div className="flex items-center gap-2">
                 <div className="flex items-center">
                   {[1, 2, 3, 4, 5].map((star) => (
@@ -330,11 +374,13 @@ const ProductDetailPage = () => {
             <div className="flex items-center gap-4 flex-wrap">
               <div className="flex items-center gap-2">
                 <span className="text-4xl font-bold text-zinc-800 dark:text-zinc-300">
-                  {product.price.toFixed(0)}
+                  {product.dynamicPrice ? product.dynamicPrice : product.price.toFixed(0)}
                 </span>
-                <span className="text-lg text-gray-600 dark:text-gray-400">
-                  {language === "ar" ? "ج.م" : "EGP"}
-                </span>
+                {!product.dynamicPrice && (
+                  <span className="text-lg text-gray-600 dark:text-gray-400">
+                    {language === "ar" ? "ج.م" : "EGP"}
+                  </span>
+                )}
               </div>
 
               {product.stock !== undefined && (

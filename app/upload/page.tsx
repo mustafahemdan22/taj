@@ -10,8 +10,10 @@ import Image from "next/image";
 // import { Product } from "@/types/index";
 import { Doc, Id } from "../../convex/_generated/dataModel";
 
+
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp", "image/avif"];
+
 
 export default function UploadPage() {
   const products = useQuery(api.functions.products.getProducts);

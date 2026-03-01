@@ -1,0 +1,71 @@
+{
+  "headers": {
+    "cashmere": "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261039/taj-scarf/categories/cashmere/header.jpg",
+    "silk": "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261045/taj-scarf/categories/silk/header.jpg",
+    "wool": "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261076/taj-scarf/categories/wool/header.png",
+    "pashmina": "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261085/taj-scarf/categories/pashmina/header.jpg",
+    "cotton": "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261091/taj-scarf/categories/cotton/header.jpg",
+    "acrylic": "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261108/taj-scarf/categories/acrylic/header.jpg",
+    "infinity": "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261115/taj-scarf/categories/infinity/header.jpg",
+    "chiffon": "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261144/taj-scarf/categories/chiffon/header.jpg"
+  },
+  "products": {
+    "cashmere": [
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261040/taj-scarf/categories/cashmere/products/1.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261041/taj-scarf/categories/cashmere/products/2.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261042/taj-scarf/categories/cashmere/products/3.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261042/taj-scarf/categories/cashmere/products/4.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261043/taj-scarf/categories/cashmere/products/5.jpg"
+    ],
+    "silk": [
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261055/taj-scarf/categories/silk/products/1.webp",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261058/taj-scarf/categories/silk/products/2.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261059/taj-scarf/categories/silk/products/3.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261060/taj-scarf/categories/silk/products/4.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261061/taj-scarf/categories/silk/products/5.jpg"
+    ],
+    "wool": [
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261078/taj-scarf/categories/wool/products/1.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261079/taj-scarf/categories/wool/products/2.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261080/taj-scarf/categories/wool/products/3.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261081/taj-scarf/categories/wool/products/4.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261083/taj-scarf/categories/wool/products/5.jpg"
+    ],
+    "pashmina": [
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261087/taj-scarf/categories/pashmina/products/1.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261088/taj-scarf/categories/pashmina/products/2.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261089/taj-scarf/categories/pashmina/products/3.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261090/taj-scarf/categories/pashmina/products/4.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261091/taj-scarf/categories/pashmina/products/5.jpg"
+    ],
+    "cotton": [
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261092/taj-scarf/categories/cotton/products/1.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261093/taj-scarf/categories/cotton/products/2.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261094/taj-scarf/categories/cotton/products/3.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261095/taj-scarf/categories/cotton/products/4.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261096/taj-scarf/categories/cotton/products/5.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261105/taj-scarf/categories/cotton/products/cotton-2.png"
+    ],
+    "acrylic": [
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261109/taj-scarf/categories/acrylic/products/1.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261111/taj-scarf/categories/acrylic/products/2.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261112/taj-scarf/categories/acrylic/products/3.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261113/taj-scarf/categories/acrylic/products/4.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261114/taj-scarf/categories/acrylic/products/5.jpg"
+    ],
+    "infinity": [
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261126/taj-scarf/categories/infinity/products/1.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261127/taj-scarf/categories/infinity/products/2.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261128/taj-scarf/categories/infinity/products/3.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261130/taj-scarf/categories/infinity/products/4.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261130/taj-scarf/categories/infinity/products/5.jpg"
+    ],
+    "chiffon": [
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261149/taj-scarf/categories/chiffon/products/1.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261150/taj-scarf/categories/chiffon/products/2.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261150/taj-scarf/categories/chiffon/products/3.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261151/taj-scarf/categories/chiffon/products/4.jpg",
+      "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261153/taj-scarf/categories/chiffon/products/5.jpg"
+    ]
+  }
+}

@@ -1,12 +1,12 @@
 export const categoryHeroImages: Record<string, string> = {
-    cashmere: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772208885/taj-scarf/categories/ezgvlzh2rlkqxrvpxlxq.jpg",
-    silk: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772208899/taj-scarf/categories/dbafx44riu7rcuu3ypee.jpg",
-    wool: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772208908/taj-scarf/categories/btcwy2uagp5tdfunpg6y.jpg",
-    pashmina: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772208920/taj-scarf/categories/umsijpsfzbgunxi14sjm.jpg",
-    cotton: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772208933/taj-scarf/categories/hzfq5jbmcsvdnoai6jny.jpg",
-    acrylic: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772208943/taj-scarf/categories/ges5uvwoawzlfmbmhhey.jpg",
-    infinity: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772208946/taj-scarf/categories/e55j2rxeatqagtn0igri.jpg",
-    chiffon: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772208958/taj-scarf/categories/fymrqlaat0m7ccaa7gqd.jpg",
+    cashmere: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261039/taj-scarf/categories/cashmere/header.jpg",
+    silk: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261045/taj-scarf/categories/silk/header.jpg",
+    wool: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261076/taj-scarf/categories/wool/header.png",
+    pashmina: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261085/taj-scarf/categories/pashmina/header.jpg",
+    cotton: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772328764/taj-scarf/categories/cotton/header.png",
+    acrylic: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261108/taj-scarf/categories/acrylic/header.jpg",
+    infinity: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261115/taj-scarf/categories/infinity/header.jpg",
+    chiffon: "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772261144/taj-scarf/categories/chiffon/header.jpg",
 };
 
 // export const categoryEmojis: Record<string, string> = {
@@ -20,8 +20,23 @@ export const categoryHeroImages: Record<string, string> = {
 //     chiffon: "🌬️",
 // };
 
+// Bump this version string when you update category hero images in Cloudinary
+// (while keeping the same file name/public ID). This changes the URL and forces
+// the browser/CDN to fetch the new image, avoiding unnecessary updates on every reload.
+export const CATEGORY_IMAGE_VERSION = "2";
+
+/**
+ * Returns the correct Cloudinary image URL for a given category.
+ * If the category ID does not exist, it returns a fallback image.
+ * 
+ * It automatically appends a version query parameter to ensure compatibility 
+ * with Next.js <Image> caching and Cloudinary updates.
+ */
 export const getCategoryHeroImage = (category: string): string => {
-    return categoryHeroImages[category] || "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772210680/taj-scarf/static/all.png";
+    const rawUrl = categoryHeroImages[category] || "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772210680/taj-scarf/static/all.png";
+    const url = new URL(rawUrl);
+    url.searchParams.set("v", CATEGORY_IMAGE_VERSION);
+    return url.toString();
 };
 
 // export const getCategoryEmoji = (category: string): string => {

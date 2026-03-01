@@ -93,6 +93,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
 
           {/* Badges */}
           <div className="absolute top-3 left-3 flex flex-col gap-2 z-10">
+            {product.badge && (
+              <span className="bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                {product.badge}
+              </span>
+            )}
             {product.discount && product.discount > 0 && (
               <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg">
                 -{product.discount}%
@@ -141,10 +146,15 @@ const ProductCard = ({ product }: ProductCardProps) => {
             {product.brand}
           </p> */}
 
-          {/* Product Name */}
-          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 min-h-[3.5rem] group-hover:text-zinc-600 dark:group-hover:text-zinc-400 transition-colors">
+          {/* Product Name & Subtitle */}
+          <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1 line-clamp-2 min-h-[1.5rem] group-hover:text-zinc-600 dark:group-hover:text-zinc-400 transition-colors">
             {productName}
           </h3>
+          {product.subtitle && (
+            <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2 line-clamp-1">
+              {product.subtitle}
+            </p>
+          )}
 
           {/* Description */}
           {productDescription && (
@@ -184,11 +194,13 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <div>
               <div className="flex items-baseline gap-2">
                 <span className="text-2xl font-bold text-zinc-700 dark:text-zinc-500">
-                  {product.price.toFixed(2)}
+                  {product.dynamicPrice ? product.dynamicPrice : product.price.toFixed(2)}
                 </span>
-                <span className="text-sm text-gray-600 dark:text-gray-400">
-                  {language === 'ar' ? '' : 'EGP'}
-                </span>
+                {!product.dynamicPrice && (
+                  <span className="text-sm text-gray-600 dark:text-gray-400">
+                    {language === 'ar' ? '' : 'EGP'}
+                  </span>
+                )}
               </div>
               {product.compareAtPrice && product.compareAtPrice > product.price && (
                 <span className="text-sm text-gray-400 dark:text-gray-500 line-through">

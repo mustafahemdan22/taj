@@ -12,13 +12,13 @@ import { FiArrowLeft, FiFilter, FiSearch } from "react-icons/fi";
 import { useState, useMemo } from "react";
 import { Product } from "@/types";
 import { getCategoryHeroImage } from "../../../utils/categoryConfig";
+import { getCategoryAssets } from "@/utils/categoryImages";
 import Image from "next/image";
 
 const CategoryDetailPage = () => {
   const params = useParams();
   const { language, isRTL } = useLanguage();
   const categoryId = typeof params.category === "string" ? params.category : "";
-
   const [searchQuery, setSearchQuery] = useState("");
 
   const products = useQuery(api.functions.products.getProductsByCategory, {
@@ -28,6 +28,9 @@ const CategoryDetailPage = () => {
   const categoryName = useMemo(() => {
     return getCategoryName(categoryId, language);
   }, [categoryId, language]);
+
+  // Load our statically mapped Cloudinary assets for this category
+  const categoryAssets = useMemo(() => getCategoryAssets(categoryId), [categoryId]);
 
   const filteredProducts = useMemo(() => {
     if (!products) return [];
@@ -68,7 +71,7 @@ const CategoryDetailPage = () => {
           className="relative h-[300px] md:h-[400px] w-full rounded-3xl overflow-hidden mb-12 shadow-2xl group"
         >
           <Image
-            src={getCategoryHeroImage(categoryId)}
+            src={categoryAssets.header}
             alt={categoryName}
             fill
             className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -112,32 +115,47 @@ const CategoryDetailPage = () => {
               {language === "ar" ? "المنتجات المتاحة" : "Available Products"}
             </h2>
           </div>
-{/* 
-          <div className="relative w-full md:w-96">
-            <FiSearch className={`absolute top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 ${isRTL ? "right-4" : "left-4"}`} />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder={language === "ar" ? "ابحث عن منتج..." : "Search products..."}
-              className={`w-full py-4 bg-white/50 dark:bg-gray-800/50 backdrop-blur-xl border border-gray-200 dark:border-gray-700 rounded-2xl focus:ring-4 focus:ring-zinc-500/10 focus:border-zinc-500 transition-all outline-none ${isRTL ? "pr-12 pl-4" : "pl-12 pr-4"}`}
-            />
-          </div> */}
         </div>
 
         {/* Products Grid */}
         {filteredProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {filteredProducts.map((product: Product, index: number) => (
-              <motion.div
-                key={product._id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-              >
-                <ProductCard product={product} />
-              </motion.div>
-            ))}
+            {filteredProducts.map((product: Product, index: number) => {
+              // Inject the fully configured Cloudinary ProductItem from our JSON database.
+              // We safely modulus the index so we don't go out of bounds if there are more products than items.
+              const mappedImageArray = categoryAssets.products;
+              const hasMappedImages = mappedImageArray && mappedImageArray.length > 0;
+              
+              const mappedProduct = hasMappedImages 
+                ? mappedImageArray[index % mappedImageArray.length] 
+                : null;
+
+              // We create a fully cloned `Product` to safely override properties
+              const renderReadyProduct: Product = {
+                ...product,
+                name: mappedProduct?.title 
+                  ? mappedProduct.title 
+                  : (language === "ar" ? `${categoryName} تصميم رقم ${index + 1}` : product.name),
+                nameEn: mappedProduct?.title 
+                  ? mappedProduct.title 
+                  : (language === "en" ? `${categoryName} Design #${index + 1}` : product.nameEn),
+                image: mappedProduct?.image || product.image,
+                subtitle: mappedProduct?.subtitle,
+                badge: mappedProduct?.badge,
+                dynamicPrice: mappedProduct?.price,
+              };
+
+              return (
+                <motion.div
+                  key={product._id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.05 }}
+                >
+                  <ProductCard product={renderReadyProduct} />
+                </motion.div>
+              );
+            })}
           </div>
         ) : (
           <motion.div
