@@ -27,6 +27,32 @@ const convex = new ConvexReactClient(
 const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
+  // If no key is provided (e.g. during Vercel build before env vars are set), 
+  // we provide a placeholder to prevent the app from crashing during static generation.
+  // Auth functionality will require the real key in the Vercel dashboard.
+  if (!publishableKey) {
+    return (
+      <ConvexProvider client={convex}>
+        <Provider store={store}>
+          <ThemeProvider>
+            <LanguageProvider>
+              <AuthProvider>
+                <WishlistProvider>
+                  <OrderProvider>
+                    <ReviewProvider>
+                      {children}
+                      <Toaster position="top-center" />
+                    </ReviewProvider>
+                  </OrderProvider>
+                </WishlistProvider>
+              </AuthProvider>
+            </LanguageProvider>
+          </ThemeProvider>
+        </Provider>
+      </ConvexProvider>
+    );
+  }
+
   return (
     <ClerkProvider publishableKey={publishableKey}>
       <ConvexProvider client={convex}>
