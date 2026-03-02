@@ -1,14 +1,17 @@
 .features {
-    background-image: url("/other/features.png");
+    background-image: url("/other/featues.png");
+    
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    position: relative;
 
+    position: relative;
 }
 
 .lear {
+    
+    inset: 0; /* تغطي كل السيكشن */
     background-color: rgba(0, 0, 0, 0.7);
-    height: 100vh;
+    padding: 40px;
 }

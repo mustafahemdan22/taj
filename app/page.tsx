@@ -44,7 +44,7 @@ export default function Page() {
       <FeaturesSection />
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-zinc-800 to-zinc-950">
+      <section className="py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

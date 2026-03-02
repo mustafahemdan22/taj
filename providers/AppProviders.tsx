@@ -24,9 +24,11 @@ const convex = new ConvexReactClient(
   convexUrl || "https://missing-url.convex.cloud"
 );
 
+const publishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
+
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
-    <ClerkProvider>
+    <ClerkProvider publishableKey={publishableKey}>
       <ConvexProvider client={convex}>
         <Provider store={store}>
           <ThemeProvider>

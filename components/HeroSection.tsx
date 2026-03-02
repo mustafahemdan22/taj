@@ -5,7 +5,6 @@ import Link from "next/link";
 import { FiShoppingBag, FiArrowRight, FiArrowLeft } from "react-icons/fi";
 import { useLanguage } from "../contexts/LanguageProvider";
 import style from "./HeroSection.module.css";
-import Image from "next/image";
 import { useRef } from "react";
 const HeroSection = () => {
   const { language, isRTL } = useLanguage();
