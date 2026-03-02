@@ -1,7 +1,9 @@
-const cloudinary = require('cloudinary').v2;
-const fs = require('fs');
-const path = require('path');
-require('dotenv').config({ path: '.env.local' });
+import { v2 as cloudinary } from "cloudinary";
+import fs from "fs";
+import path from "path";
+import dotenv from "dotenv";
+
+dotenv.config({ path: ".env.local" });
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -9,7 +11,7 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const categories = ["cashmere", "silk", "wool", "pashmina", "cotton", "acrylic", "infinity", "chiffon"];
+const categories = ["cashmere", "silk", "wool", "pashmina", "cotton", "acrylic", "infinity", "chiffon", "viscose"];
 const baseDir = path.join(process.cwd(), 'public', 'categories');
 
 async function uploadCategories() {
