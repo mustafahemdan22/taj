@@ -29,6 +29,12 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const isWishlisted = isInWishlist(productId);
 
   const resolvedImage = getProductImageUrl(product);
+  
+  if (product.category === 'viscose') {
+    console.log(`[AUDIT] Product: ${product.nameEn} (${product._id})`);
+    console.log(`[AUDIT] Raw images array:`, product.images);
+    console.log(`[AUDIT] Resolved Image URL: ${resolvedImage}`);
+  }
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault();

@@ -1,18 +1,17 @@
 // convex/translations.ts
 import { categoryHeroImages } from "./constants";
 
-const fallbackImage = "https://res.cloudinary.com/dfq1xxerr/image/upload/v1772210680/taj-scarf/static/all.png";
 
 export const categoryTranslations: Record<string, { ar: string; en: string; image: string }> = {
-    all: { ar: 'الكل', en: 'All Products', image: fallbackImage },
-    cashmere: { ar: 'كشمير', en: 'Cashmere', image: categoryHeroImages.cashmere || fallbackImage },
-    silk: { ar: 'حرير', en: 'Silk', image: categoryHeroImages.silk || fallbackImage },
-    wool: { ar: 'صوف', en: 'Wool', image: categoryHeroImages.wool || fallbackImage },
-    pashmina: { ar: 'باشمينا', en: 'Pashmina', image: categoryHeroImages.pashmina || fallbackImage },
-    cotton: { ar: 'قطن', en: 'Cotton', image: categoryHeroImages.cotton || fallbackImage },
-    acrylic: { ar: 'أكريليك', en: 'Acrylic', image: categoryHeroImages.acrylic || fallbackImage },
-    infinity: { ar: 'إنفينيتي', en: 'Infinity', image: categoryHeroImages.infinity || fallbackImage },
-    chiffon: { ar: 'شيفون', en: 'Chiffon', image: categoryHeroImages.chiffon || fallbackImage },
+    cashmere: { ar: 'كشمير', en: 'Cashmere', image: categoryHeroImages.cashmere || "taj-scarf/categories/all/header" },
+    silk: { ar: 'حرير', en: 'Silk', image: categoryHeroImages.silk || "taj-scarf/categories/all/header" },
+    wool: { ar: 'صوف', en: 'Wool', image: categoryHeroImages.wool || "taj-scarf/categories/all/header" },
+    pashmina: { ar: 'باشمينا', en: 'Pashmina', image: categoryHeroImages.pashmina || "taj-scarf/categories/all/header" },
+    cotton: { ar: 'قطن', en: 'Cotton', image: categoryHeroImages.cotton || "taj-scarf/categories/all/header" },
+    acrylic: { ar: 'أكريليك', en: 'Acrylic', image: categoryHeroImages.acrylic || "taj-scarf/categories/all/header" },
+    infinity: { ar: 'إنفينيتي', en: 'Infinity', image: categoryHeroImages.infinity || "taj-scarf/categories/all/header" },
+    chiffon: { ar: 'شيفون', en: 'Chiffon', image: categoryHeroImages.chiffon || "taj-scarf/categories/all/header" },
+    viscose: { ar: 'فيسكوز', en: 'Viscose', image: categoryHeroImages.viscose || "taj-scarf/categories/all/header" },
 };
 export const getCategoryData = (category: string) => {
     const key = category.toLowerCase();
@@ -20,7 +19,7 @@ export const getCategoryData = (category: string) => {
     return {
         ar: trans?.ar || category,
         en: trans?.en || category,
-        image: trans?.image || fallbackImage,
+        image: trans?.image || "taj-scarf/categories/all/header",
     };
 };
 

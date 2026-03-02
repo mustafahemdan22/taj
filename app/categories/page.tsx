@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import ProductCard from "../../components/ProductCard";
 import { useLanguage } from "../../contexts/LanguageProvider";
 import { useRouter } from "next/navigation";
 import { useState,  useMemo, useCallback } from "react";
@@ -10,12 +9,11 @@ import { useQuery } from "convex/react"; // ✅ FIXED: Import useQuery
 import { api } from "@/convex/_generated/api";
 import { Product } from "@/types";
 import { getCategoryName } from "@/convex/translations";
-import { getCategoryAssets } from "@/utils/categoryImages";
-import Image from "next/image";
+import { CATEGORIES } from "@/convex/constants";
+import CategoryGrid from "@/components/CategoryGrid";
 
 // ✅ FIXED: Custom hook for products query
 const useProducts = () => useQuery(api.functions.products.getProducts);
-
 
 
 // Pagination Component
@@ -115,17 +113,12 @@ const CategoriesPage = () => {
 
   // ✅ FIXED: Derive categories from loaded products
   const categoriesList = useMemo(() => {
-    if (!products) return [];
-    const uniqueCategories = [...new Set(products.map((p: Product) => p.category))];
-    return [
-      { id: "all", name: getCategoryName("all", language), nameEn: "All Products" },
-      ...uniqueCategories.map((cat: string) => ({
-        id: cat,
-        name: getCategoryName(cat, language),
-        nameEn: cat,
-      })),
-    ];
-  }, [products, language]);
+    return CATEGORIES.map((cat: string) => ({
+  id: cat,
+  name: getCategoryName(cat, language),
+  nameEn: cat,
+}));
+  }, [language]);
 
   // Filtered Products
   const filteredProducts = useMemo(() => {
@@ -299,66 +292,12 @@ const CategoriesPage = () => {
 
         {/* Products Grid */}
         <motion.section layout initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="relative mb-16">
-          {filteredProducts.length > 0 ? (
-            <div className={`grid gap-8 ${viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4" : "grid-cols-1"}`}>
-              {currentProducts.map((product: Product, index: number) => {
-                const categoryAssets = getCategoryAssets(product.category);
-                const mappedImageArray = categoryAssets.products;
-                const hasMappedImages = mappedImageArray && mappedImageArray.length > 0;
-                
-                const mappedProduct = hasMappedImages 
-                  ? mappedImageArray[index % mappedImageArray.length] 
-                  : null;
-
-                const renderReadyProduct: Product = {
-                  ...product,
-                  name: mappedProduct?.title 
-                    ? mappedProduct.title 
-                    : (language === "ar" ? `${getCategoryName(product.category, "ar")} تصميم رقم ${index + 1}` : product.name),
-                  nameEn: mappedProduct?.title 
-                    ? mappedProduct.title 
-                    : (language === "en" ? `${getCategoryName(product.category, "en")} Design #${index + 1}` : product.nameEn),
-                  image: mappedProduct?.image || product.image,
-                  subtitle: mappedProduct?.subtitle,
-                  badge: mappedProduct?.badge,
-                  dynamicPrice: mappedProduct?.price,
-                };
-
-                return (
-                  <motion.div 
-                    key={product._id} 
-                    initial={{ opacity: 0, y: 40 }} 
-                    whileInView={{ opacity: 1, y: 0 }} 
-                    viewport={{ once: true, margin: "-100px" }} 
-                    transition={{ duration: 0.5, delay: index * 0.05 }} 
-                    whileHover={{ y: -12 }}
-                  >
-                    <ProductCard product={renderReadyProduct} />
-                    
-                  </motion.div>
-                );
-              })}
-            </div>
-          ) : (
-            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="col-span-full flex flex-col items-center justify-center py-32 text-center">
-              <motion.div 
-                animate={{ rotate: [0, 360], scale: [1, 1.1, 1] }} 
-                transition={{ rotate: { duration: 4, repeat: Infinity, ease: "linear" }, scale: { duration: 2, repeat: Infinity } }} 
-                className="w-32 h-32 mb-8 bg-gradient-to-br from-zinc-200 to-zinc-300 dark:from-zinc-700 dark:to-zinc-500 rounded-3xl flex items-center justify-center shadow-2xl"
-              >
-              </motion.div>
-              <h3 className="text-4xl font-bold mb-3">
-                {language === "ar" ? "عفواً، لم يتم العثور على منتجات" : "No products found"}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 max-w-md">
-                {language === "ar" ? "حاول البحث أو تغيير الفئة لتجد ما تبحث عنه." : "Try searching or changing category to find what you're looking for."}
-              </p>
-            </motion.div>
-          )}
+       <CategoryGrid />
         </motion.section>
+        
 
         {/* Pagination */}
-        {totalPages > 1 && (
+        {/* {totalPages > 1 && (
           <Pagination 
           
             currentPage={currentPage} 
@@ -368,7 +307,7 @@ const CategoriesPage = () => {
             isRTL={isRTL} 
           />
           
-        )}
+        )} */}
       </div>
     </div>
   );

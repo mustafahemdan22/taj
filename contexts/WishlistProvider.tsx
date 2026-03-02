@@ -27,27 +27,22 @@ interface WishlistProviderProps {
 }
 
 export const WishlistProvider: React.FC<WishlistProviderProps> = ({ children }) => {
-  const [wishlist, setWishlist] = useState<Product[]>([]);
-  const [isHydrated, setIsHydrated] = useState(false);
+  const [wishlist, setWishlist] = useState<Product[]>(() => {
+    if (typeof window === "undefined") return [];
+    const savedWishlist = window.localStorage.getItem("taj-wishlist");
+    if (!savedWishlist) return [];
+    try {
+      return JSON.parse(savedWishlist);
+    } catch (error) {
+      console.error("Error loading wishlist from localStorage:", error);
+      window.localStorage.removeItem("taj-wishlist");
+      return [];
+    }
+  });
 
   useEffect(() => {
-    const savedWishlist = localStorage.getItem('panda-wishlist');
-    if (savedWishlist) {
-      try {
-        setWishlist(JSON.parse(savedWishlist));
-      } catch (error) {
-        console.error('Error loading wishlist from localStorage:', error);
-        localStorage.removeItem('panda-wishlist');
-      }
-    }
-    setIsHydrated(true);
-  }, []);
-
-  useEffect(() => {
-    if (isHydrated) {
-      localStorage.setItem('panda-wishlist', JSON.stringify(wishlist));
-    }
-  }, [wishlist, isHydrated]);
+    window.localStorage.setItem("taj-wishlist", JSON.stringify(wishlist));
+  }, [wishlist]);
 
   // ✅ استخدم useCallback للدوال
   const addToWishlist = useCallback((product: Product) => {

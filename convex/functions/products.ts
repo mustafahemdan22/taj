@@ -1,14 +1,13 @@
 import { mutation, query } from "../_generated/server";
 import { v } from "convex/values";
-import { categoryHeroImages } from "../constants";
 
-// إضافة منتج واحد
+// Add a single product
 export const createProduct = mutation({
   args: {
     name: v.string(),
     nameEn: v.string(),
     price: v.number(),
-    image: v.string(),
+    images: v.array(v.string()),
     category: v.string(),
     description: v.string(),
     descriptionEn: v.string(),
@@ -29,6 +28,20 @@ export const getProducts = query({
   },
 });
 
+export const getProductById = query({
+  args: { productId: v.string() },
+  handler: async ({ db }, args) => {
+    if (!args.productId) return null;
+    try {
+      const id = db.normalizeId("products", args.productId);
+      if (!id) return null;
+      return await db.get(id);
+    } catch {
+      return null;
+    }
+  },
+});
+
 export const getProductsByCategory = query({
   args: { category: v.string() },
   handler: async (ctx, args) => {
@@ -39,43 +52,67 @@ export const getProductsByCategory = query({
   },
 });
 
-// Update product image(s) with Cloudinary URLs
+// Update product image(s) with Cloudinary IDs
 export const updateProductImage = mutation({
   args: {
     productId: v.id("products"),
-    image: v.string(),
-    images: v.optional(v.array(v.string())),
+    images: v.array(v.string()),
   },
   handler: async (ctx, args) => {
-    const updateData: any = { image: args.image };
-    if (args.images) {
-      updateData.images = args.images;
-    }
-    await ctx.db.patch(args.productId, updateData);
+    await ctx.db.patch(args.productId, {
+      images: args.images
+    });
     return { success: true };
   },
 });
 
-// One-time fix: ensure all products have clear image fields if they only had category placeholders
-export const fixAllProductImages = mutation({
+/**
+ * Migration: Normalize all products to use ONLY the images array.
+ * Cleans up legacy 'image' field and ensures public IDs include correct paths.
+ */
+export const migrateToStrictCloudinary = mutation({
   args: {},
   handler: async (ctx) => {
     const allProducts = await ctx.db.query("products").collect();
     let updated = 0;
 
-    for (let i = 0; i < allProducts.length; i++) {
-      const product = allProducts[i];
+    for (const product of allProducts) {
+      const legacyImage = (product as any).image;
+      let finalImages = product.images || [];
 
-      // If image is a path to category images or common local placeholders, clear it
-      if (product.image.includes('/categories/') || product.image.includes('/images/all.png')) {
-        await ctx.db.patch(product._id, {
-          image: "", // Use empty string to trigger frontend placeholder
-          images: []
-        });
-        updated++;
+      // If we have a legacy image not in the array, add it to the front
+      if (legacyImage && !finalImages.includes(legacyImage)) {
+        finalImages = [legacyImage, ...finalImages];
       }
+
+      // Filter out empty or placeholder strings
+      finalImages = finalImages.filter(img =>
+        img &&
+        !img.includes('coming-soon')
+      );
+
+      // Normalize paths: ensure public_id includes the correct category folder
+      // e.g., if it's just "1", convert to "taj-scarf/categories/[category]/products/1"
+      finalImages = finalImages.map(img => {
+        if (img.startsWith('http') || img.includes('/')) return img;
+        // It's a flat ID, prepend the standard path
+        return `taj-scarf/categories/${product.category}/products/${img}`;
+      });
+
+      // Remove duplicates
+      finalImages = [...new Set(finalImages)];
+
+      // Always update to ensure 'image' field is removed by patch (schema update will handle the rest)
+      const patchData: any = { images: finalImages };
+      // We set legacy image to undefined if it exists just to be safe during the transition
+      if (legacyImage !== undefined) {
+        patchData.image = undefined;
+      }
+
+      await ctx.db.patch(product._id, patchData);
+      updated++;
     }
 
-    return `Fixed ${updated} products by removing category-specific placeholders from their image fields.`;
+    return `Successfully migrated ${updated} products to strict Cloudinary architecture.`;
   },
 });

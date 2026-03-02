@@ -9,8 +9,7 @@ export interface Product {
   name: string;
   nameEn?: string;
   price: number;
-  image: string;
-  images?: string[];       // صور إضافية للمنتج
+  images: string[];       // صور المنتج (الأولى هي الأساسية)
   category: string;
   brand?: string;
   unit?: string;

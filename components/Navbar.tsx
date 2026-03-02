@@ -57,7 +57,7 @@ useEffect(() => {
     { href: '/about', icon: FiInfo, text: language === 'ar' ? 'من نحن' : 'About' },
     { href: '/blog', icon: FiBookOpen, text: language === 'ar' ? 'المدونة' : 'Blog' },
     { href: '/contact', icon: FiMail, text: language === 'ar' ? 'اتصل بنا' : 'Contact' },
-    { href: '/categories', icon: FiGrid, text: language === 'ar' ? 'الفئات' : 'Categories' },
+    { href: '/categories', icon: FiGrid, text: language === 'ar' ? ' الفئات' : 'Categories' },
     ...(user ? [{ href: '/orders', icon: FiPackage, text: language === 'ar' ? 'طلباتي' : 'My Orders' }] : []),
   ];
 

@@ -8,10 +8,9 @@ import ProductCard from "../../../components/ProductCard";
 import { useLanguage } from "../../../contexts/LanguageProvider";
 import { getCategoryName } from "@/convex/translations";
 import Link from "next/link";
-import { FiArrowLeft, FiFilter, FiSearch } from "react-icons/fi";
+import { FiArrowLeft, FiFilter} from "react-icons/fi";
 import { useState, useMemo } from "react";
 import { Product } from "@/types";
-import { getCategoryHeroImage } from "../../../utils/categoryConfig";
 import { getCategoryAssets } from "@/utils/categoryImages";
 import Image from "next/image";
 
@@ -19,7 +18,7 @@ const CategoryDetailPage = () => {
   const params = useParams();
   const { language, isRTL } = useLanguage();
   const categoryId = typeof params.category === "string" ? params.category : "";
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery] = useState("");
 
   const products = useQuery(api.functions.products.getProductsByCategory, {
     category: categoryId,
@@ -34,10 +33,10 @@ const CategoryDetailPage = () => {
 
   const filteredProducts = useMemo(() => {
     if (!products) return [];
-    if (!searchQuery.trim()) return products;
+    if (!searchQuery.trim()) return products as Product[];
 
     const query = searchQuery.toLowerCase().trim();
-    return products.filter((p: Product) =>
+    return (products as Product[]).filter((p: Product) =>
       p.name.toLowerCase().includes(query) ||
       (p.nameEn?.toLowerCase() || "").includes(query) ||
       (p.description?.toLowerCase() || "").includes(query) ||
@@ -121,30 +120,6 @@ const CategoryDetailPage = () => {
         {filteredProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {filteredProducts.map((product: Product, index: number) => {
-              // Inject the fully configured Cloudinary ProductItem from our JSON database.
-              // We safely modulus the index so we don't go out of bounds if there are more products than items.
-              const mappedImageArray = categoryAssets.products;
-              const hasMappedImages = mappedImageArray && mappedImageArray.length > 0;
-              
-              const mappedProduct = hasMappedImages 
-                ? mappedImageArray[index % mappedImageArray.length] 
-                : null;
-
-              // We create a fully cloned `Product` to safely override properties
-              const renderReadyProduct: Product = {
-                ...product,
-                name: mappedProduct?.title 
-                  ? mappedProduct.title 
-                  : (language === "ar" ? `${categoryName} تصميم رقم ${index + 1}` : product.name),
-                nameEn: mappedProduct?.title 
-                  ? mappedProduct.title 
-                  : (language === "en" ? `${categoryName} Design #${index + 1}` : product.nameEn),
-                image: mappedProduct?.image || product.image,
-                subtitle: mappedProduct?.subtitle,
-                badge: mappedProduct?.badge,
-                dynamicPrice: mappedProduct?.price,
-              };
-
               return (
                 <motion.div
                   key={product._id}
@@ -152,7 +127,7 @@ const CategoryDetailPage = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.05 }}
                 >
-                  <ProductCard product={renderReadyProduct} />
+                  <ProductCard product={product} />
                 </motion.div>
               );
             })}

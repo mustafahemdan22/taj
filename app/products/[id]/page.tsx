@@ -22,14 +22,12 @@ import { useLanguage } from "../../../contexts/LanguageProvider";
 import { useWishlist } from "../../../contexts/WishlistProvider";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
-import { Product } from "../../../types/index";
+import { Product, CartItem } from "../../../types/index";
 import ProductReviews from "../../../components/ProductReviews";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import Image from "next/image";
 import { getProductImages } from "../../../utils/productImage";
-import { getCategoryAssets } from "../../../utils/categoryImages";
-import { getCategoryName } from "../../../convex/translations";
 
 const ProductDetailPage = () => {
   const params = useParams();
@@ -43,48 +41,14 @@ const ProductDetailPage = () => {
 
   const productId = typeof params.id === 'string' ? params.id : '';
 
-  // ✅ FIXED: Fetch products from Convex instead of non-existent data/products module
-  const allProducts = useQuery(api.functions.products.getProducts);
-
-  const baseProduct = useMemo(() => {
-    if (!allProducts) return null;
-    return allProducts.find((p: any) => p._id === productId) || null;
-  }, [allProducts, productId]);
-
-  const product = useMemo(() => {
-    if (!allProducts || !baseProduct) return null;
-    
-    const categoryProducts = allProducts.filter((p: any) => p.category === baseProduct.category);
-    const index = Math.max(0, categoryProducts.findIndex((p: any) => p._id === baseProduct._id));
-    
-    const categoryAssets = getCategoryAssets(baseProduct.category);
-    const mappedImageArray = categoryAssets.products;
-    const hasMappedImages = mappedImageArray && mappedImageArray.length > 0;
-    
-    const mappedProduct = hasMappedImages 
-      ? mappedImageArray[index % mappedImageArray.length] 
-      : null;
-
-    return {
-      ...baseProduct,
-      name: mappedProduct?.title 
-        ? mappedProduct.title 
-        : (language === "ar" ? `${getCategoryName(baseProduct.category, "ar")} تصميم رقم ${index + 1}` : baseProduct.name),
-      nameEn: mappedProduct?.title 
-        ? mappedProduct.title 
-        : (language === "en" ? `${getCategoryName(baseProduct.category, "en")} Design #${index + 1}` : baseProduct.nameEn),
-      image: mappedProduct?.image || baseProduct.image,
-      subtitle: mappedProduct?.subtitle,
-      badge: mappedProduct?.badge,
-      dynamicPrice: mappedProduct?.price,
-    };
-  }, [allProducts, baseProduct, language]);
+  // Use focused query for single product
+  const product = useQuery(api.functions.products.getProductById, { productId }) as Product | null;
 
   const productImages = useMemo(() => {
-    return getProductImages(product);
+    return getProductImages(product as Product);
   }, [product]);
 
-  const isLoading = allProducts === undefined;
+  const isLoading = product === undefined;
 
   if (isLoading) {
     return (
@@ -151,13 +115,13 @@ const ProductDetailPage = () => {
 
 
   const productImage = productImages[selectedImage] || productImages[0];
-  const productName = language === "ar" ? product.name : product.nameEn;
+  const productName = (language === "ar" ? product.name : product.nameEn) || "Product";
   const productDescription =
-    language === "ar" ? product.description : product.descriptionEn;
+    (language === "ar" ? product.description : product.descriptionEn) || "";
   const productSubtitle = product.subtitle;
 
   const pid = product._id;
-  const cartItem = cartItems.find((item: any) => item.product._id === pid);
+  const cartItem = cartItems.find((item: CartItem) => item.product._id === pid);
   const currentQuantity = cartItem ? cartItem.quantity : 0;
   const isWishlisted = isInWishlist(pid);
 
@@ -294,7 +258,7 @@ const ProductDetailPage = () => {
               
               {/* Category Label */}
               <div className="absolute top-6 left-6 px-4 py-2 bg-white/90 dark:bg-black/70 backdrop-blur-md rounded-xl shadow-xl z-10 border border-white/20">
-                <span className="text-sm font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">{product.category}</span>
+                <span className="text-sm font-bold text-zinc-800 dark:text-zinc-200 uppercase tracking-wider">{product.category || "General"}</span>
               </div>
 
               {/* Dynamic Badge */}

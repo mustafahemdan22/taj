@@ -2,19 +2,17 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useLanguage } from '../contexts/LanguageProvider';
 import { getCategoryAssets } from '@/utils/categoryImages';
+import { CATEGORIES } from '@/convex/constants';
+import { getCategoryName } from '@/convex/translations';
 import Image from "next/image";
 
 const CategoryGrid = () => {
-  const { language, isRTL } = useLanguage();
+  const { language } = useLanguage();
 
-  const categories = [
-    { id: 'cashmere', name: language === 'ar' ? 'كشمير' : 'Cashmere' },
-    { id: 'silk', name: language === 'ar' ? 'حرير' : 'Silk' },
-    { id: 'wool', name: language === 'ar' ? 'صوف' : 'Wool' },
-    { id: 'pashmina', name: language === 'ar' ? 'باشمينا' : 'Pashmina' },
-    { id: 'cotton', name: language === 'ar' ? 'قطن' : 'Cotton' },
-    { id: 'acrylic', name: language === 'ar' ? 'أكريليك' : 'Acrylic' }
-  ];
+  const categories = CATEGORIES.map(id => ({
+    id,
+    name: getCategoryName(id, language)
+  }));
 
   const containerVariants = {
     hidden: { opacity: 0 },

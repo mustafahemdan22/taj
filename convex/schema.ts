@@ -2,83 +2,89 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
-    users: defineTable({
-        clerkId: v.optional(v.string()), // Optional for compatibility with custom auth
-        firstName: v.string(),
-        lastName: v.string(),
-        email: v.string(),
-        phone: v.optional(v.string()),
-        password: v.optional(v.string()), // Optional if using Clerk/OAuth later
-        profileImage: v.optional(v.string()),
-    })
-        .index("by_clerkId", ["clerkId"])
-        .index("by_email", ["email"]),
 
-    products: defineTable({
-        name: v.string(),
-        nameEn: v.string(),
+  users: defineTable({
+    clerkId: v.optional(v.string()),
+    firstName: v.string(),
+    lastName: v.string(),
+    email: v.string(),
+    phone: v.optional(v.string()),
+    password: v.optional(v.string()),
+    profileImage: v.optional(v.string()),
+  })
+    .index("by_clerkId", ["clerkId"])
+    .index("by_email", ["email"]),
+
+  products: defineTable({
+    name: v.string(),               // Arabic
+    nameEn: v.string(),             // English
+    price: v.number(),
+    category: v.string(),
+    description: v.string(),        // Arabic
+    descriptionEn: v.string(),      // English
+    brand: v.string(),
+    stock: v.number(),
+    unit: v.string(),
+    rating: v.number(),
+    reviews: v.number(),
+
+    // ✅ Cloudinary ONLY
+    images: v.array(v.string()),    // public_id فقط — إجباري
+
+    subtitle: v.optional(v.string()),
+    badge: v.optional(v.string()),
+    dynamicPrice: v.optional(v.string()),
+  })
+    .index("by_category", ["category"]),
+
+  orders: defineTable({
+    userId: v.string(),
+    orderNumber: v.string(),
+
+    items: v.array(
+      v.object({
+        productId: v.string(),
+        productName: v.string(),
+        productDescription: v.string(),
+        productCategory: v.string(),
+        quantity: v.number(),
         price: v.number(),
-        image: v.string(),
-        category: v.string(),
-        description: v.string(),
-        descriptionEn: v.string(),
-        brand: v.string(),
-        stock: v.number(),
-        unit: v.string(),
-        rating: v.number(),
-        reviews: v.number(),
-        images: v.optional(v.array(v.string())),
-    }).index("by_category", ["category"]),
+        unitPrice: v.number(),
+      })
+    ),
 
-    orders: defineTable({
-        userId: v.string(), // clerkId or internal userId
-        orderNumber: v.string(),
-        items: v.array(
-            v.object({
-                productId: v.string(),
-                productName: v.string(),
-                productDescription: v.string(),
-                productCategory: v.string(),
-                quantity: v.number(),
-                price: v.number(),
-                unitPrice: v.number(),
-            })
-        ),
-        total: v.number(),
-        status: v.union(
-            v.literal("pending"),
-            v.literal("confirmed"),
-            v.literal("processing"),
-            v.literal("shipped"),
-            v.literal("delivered"),
-            v.literal("cancelled")
-        ),
-        shippingAddress: v.object({
-            street: v.string(),
-            city: v.string(),
-            state: v.string(),
-            zipCode: v.string(),
-            country: v.string(),
-        }),
-        customerInfo: v.object({
-            firstName: v.string(),
-            lastName: v.string(),
-            email: v.string(),
-            phone: v.string(),
-        }),
-        paymentMethod: v.string(),
-        trackingNumber: v.optional(v.string()),
-        deliveryDate: v.optional(v.number()),
-    })
-        .index("by_userId", ["userId"])
-        .index("by_orderNumber", ["orderNumber"])
-        .index("by_status", ["status"])
-        .index("by_userId_and_status", ["userId", "status"]),
+    total: v.number(),
 
-    images: defineTable({
-        storageId: v.string(),
-        title: v.optional(v.string()),
-        uploadedBy: v.optional(v.string()),
-    })
-        .index("by_uploadedBy", ["uploadedBy"]),
+    status: v.union(
+      v.literal("pending"),
+      v.literal("confirmed"),
+      v.literal("processing"),
+      v.literal("shipped"),
+      v.literal("delivered"),
+      v.literal("cancelled")
+    ),
+
+    shippingAddress: v.object({
+      street: v.string(),
+      city: v.string(),
+      state: v.string(),
+      zipCode: v.string(),
+      country: v.string(),
+    }),
+
+    customerInfo: v.object({
+      firstName: v.string(),
+      lastName: v.string(),
+      email: v.string(),
+      phone: v.string(),
+    }),
+
+    paymentMethod: v.string(),
+    trackingNumber: v.optional(v.string()),
+    deliveryDate: v.optional(v.number()),
+  })
+    .index("by_userId", ["userId"])
+    .index("by_orderNumber", ["orderNumber"])
+    .index("by_status", ["status"])
+    .index("by_userId_and_status", ["userId", "status"]),
 });

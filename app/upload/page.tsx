@@ -4,11 +4,10 @@ import { useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FiUpload, FiCheckCircle, FiX, FiInfo, FiAlertCircle } from "react-icons/fi";
+import { FiUpload, FiCheckCircle, FiX, FiInfo} from "react-icons/fi";
 import toast from "react-hot-toast";
 import Image from "next/image";
-// import { Product } from "@/types/index";
-import { Doc, Id } from "../../convex/_generated/dataModel";
+import { Id } from "../../convex/_generated/dataModel";
 
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
@@ -107,8 +106,7 @@ export default function UploadPage() {
       // We are opting to save public_id for dynamic transformations
       await updateProductImage({
         productId: selectedProductId as Id<"products">,
-        image: publicIds[0], // Primary image = first uploaded public_id
-        images: publicIds,    // All public_ids
+        images: publicIds[0],    // All public_ids
       });
 
       toast.success("Images uploaded and saved successfully!", { id: toastId });

@@ -28,6 +28,123 @@ import { useState } from "react";
 import Image from "next/image";
 import { getProductImageUrl } from "../../utils/productImage";
 
+const CartItemRow = ({
+  item,
+  index,
+  isRTL,
+  language,
+  handleQuantityChange,
+  handleRemoveItem,
+}: any) => {
+  const [imageError, setImageError] = useState(false);
+  const productName = language === "ar" ? item.product?.name || "" : item.product?.nameEn || "";
+  const productDescription = language === "ar" ? item.product?.description : item.product?.descriptionEn;
+  const resolvedImage = getProductImageUrl(item.product);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: isRTL ? 20 : -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: isRTL ? -20 : 20, height: 0 }}
+      transition={{ duration: 0.3, delay: index * 0.05 }}
+      layout
+      className="p-6 flex flex-wrap items-center gap-4"
+    >
+      {/* Product Image */}
+      <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden relative">
+        {resolvedImage && !imageError ? (
+          <Image
+            src={resolvedImage}
+            alt={productName}
+            fill
+            className="object-cover"
+            sizes="96px"
+            onError={() => setImageError(true)}
+            loading="lazy"
+          />
+        ) : (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 border-2 border-dashed border-gray-200 dark:border-gray-700 m-1 rounded-lg">
+            <span className="text-gray-400 dark:text-gray-600 font-bold text-[10px] uppercase tracking-tighter text-center leading-tight">
+              Image<br />Coming<br />Soon
+            </span>
+          </div>
+        )}
+      </div>
+
+      {/* Product Info */}
+      <div className="flex-1 min-w-[150px]">
+        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-1">
+          {productName}
+        </h3>
+        {productDescription && (
+          <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-1">
+            {productDescription}
+          </p>
+        )}
+        <p className="text-zinc-700 dark:text-zinc-300 font-semibold mt-1">
+          {Number(item.product?.price || 0).toFixed(2)}{" "}
+          {language === "ar" ? "ج.م" : "EGP"}
+        </p>
+      </div>
+
+      {/* Quantity Controls */}
+      <div className="flex items-center gap-2">
+        <button
+          onClick={() =>
+            handleQuantityChange(
+              item.product?._id || "",
+              (Number(item.quantity) || 0) - 1
+            )
+          }
+          className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+          aria-label="Decrease quantity"
+        >
+          <FiMinus className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+        </button>
+
+        <span className="w-10 text-center font-medium text-gray-900 dark:text-white text-lg">
+          {Number(item.quantity) || 0}
+        </span>
+
+        <button
+          onClick={() =>
+            handleQuantityChange(
+              item.product?._id || "",
+              (Number(item.quantity) || 0) + 1
+            )
+          }
+          className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors disabled:opacity-50"
+          disabled={
+            item.product?.stock !== undefined &&
+            (Number(item.quantity) || 0) >= (Number(item.product.stock) || 0)
+          }
+          aria-label="Increase quantity"
+        >
+          <FiPlus className="w-4 h-4 text-gray-700 dark:text-gray-300" />
+        </button>
+      </div>
+
+      {/* Price & Remove */}
+      <div className="flex flex-col items-end gap-2 mt-2 sm:mt-0">
+        <div className="text-lg font-bold text-gray-900 dark:text-white">
+          {(
+            (Number(item.product?.price) || 0) *
+            (Number(item.quantity) || 0)
+          ).toFixed(2)}{" "}
+          {language === "ar" ? "ج.م" : "EGP"}
+        </div>
+        <button
+          onClick={() => handleRemoveItem(item.product?._id || "")}
+          className="text-red-600 hover:text-red-700 p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+          aria-label="Remove item"
+        >
+          <FiTrash2 className="w-5 h-5" />
+        </button>
+      </div>
+    </motion.div>
+  );
+};
+
 const CartPage = () => {
   const { language, isRTL } = useLanguage();
   const router = useRouter();
@@ -164,110 +281,17 @@ const CartPage = () => {
 
               <div className="divide-y divide-gray-200 dark:divide-gray-700">
                 <AnimatePresence mode="popLayout">
-                  {items.map((item, index) => {
-                    const productName =
-                      language === "ar"
-                        ? item.product?.name || ""
-                        : item.product?.nameEn || "";
-                    const productDescription =
-                      language === "ar"
-                        ? item.product?.description
-                        : item.product?.descriptionEn;
-
-                    return (
-                      <motion.div
-                        key={item.product?._id || `item-${index}`}
-                        initial={{ opacity: 0, x: isRTL ? 20 : -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0, x: isRTL ? -20 : 20, height: 0 }}
-                        transition={{ duration: 0.3, delay: index * 0.05 }}
-                        layout
-                        className="p-6 flex flex-wrap items-center gap-4"
-                      >
-                        {/* Product Image */}
-                        <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden relative">
-                          <Image
-                            src={getProductImageUrl(item.product)}
-                            alt={productName}
-                            fill
-                            className="object-cover"
-                            sizes="96px"
-                          />
-                        </div>
-
-                        {/* Product Info */}
-                        <div className="flex-1 min-w-[150px]">
-                          <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-1">
-                            {productName}
-                          </h3>
-                          {productDescription && (
-                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-2 line-clamp-1">
-                              {productDescription}
-                            </p>
-                          )}
-                          <p className="text-zinc-700 dark:text-zinc-300 font-semibold mt-1">
-                            {Number(item.product?.price || 0).toFixed(2)}{" "}
-                            {language === "ar" ? "ج.م" : "EGP"}
-                          </p>
-                        </div>
-
-                        {/* Quantity Controls */}
-                        <div className="flex items-center gap-2">
-                          <button
-                            onClick={() =>
-                              handleQuantityChange(
-                                item.product?._id || "",
-                                (Number(item.quantity) || 0) - 1
-                              )
-                            }
-                            className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-                            aria-label="Decrease quantity"
-                          >
-                            <FiMinus className="w-4 h-4 text-gray-700 dark:text-gray-300" />
-                          </button>
-
-                          <span className="w-10 text-center font-medium text-gray-900 dark:text-white text-lg">
-                            {Number(item.quantity) || 0}
-                          </span>
-
-                          <button
-                            onClick={() =>
-                              handleQuantityChange(
-                                item.product?._id || "",
-                                (Number(item.quantity) || 0) + 1
-                              )
-                            }
-                            className="w-8 h-8 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors disabled:opacity-50"
-                            disabled={
-                              item.product?.stock !== undefined &&
-                              (Number(item.quantity) || 0) >= (Number(item.product.stock) || 0)
-                            }
-                            aria-label="Increase quantity"
-                          >
-                            <FiPlus className="w-4 h-4 text-gray-700 dark:text-gray-300" />
-                          </button>
-                        </div>
-
-                        {/* Price & Remove */}
-                        <div className="flex flex-col items-end gap-2 mt-2 sm:mt-0">
-                          <div className="text-lg font-bold text-gray-900 dark:text-white">
-                            {(
-                              (Number(item.product?.price) || 0) *
-                              (Number(item.quantity) || 0)
-                            ).toFixed(2)}{" "}
-                            {language === "ar" ? "ج.م" : "EGP"}
-                          </div>
-                          <button
-                            onClick={() => handleRemoveItem(item.product?._id || "")}
-                            className="text-red-600 hover:text-red-700 p-2 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
-                            aria-label="Remove item"
-                          >
-                            <FiTrash2 className="w-5 h-5" />
-                          </button>
-                        </div>
-                      </motion.div>
-                    );
-                  })}
+                  {items.map((item, index) => (
+                    <CartItemRow
+                      key={item.product?._id || `item-${index}`}
+                      item={item}
+                      index={index}
+                      isRTL={isRTL}
+                      language={language}
+                      handleQuantityChange={handleQuantityChange}
+                      handleRemoveItem={handleRemoveItem}
+                    />
+                  ))}
                 </AnimatePresence>
               </div>
             </div>

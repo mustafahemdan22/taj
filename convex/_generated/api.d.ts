@@ -11,9 +11,11 @@
 import type * as constants from "../constants.js";
 import type * as functions_createUser from "../functions/createUser.js";
 import type * as functions_loginUser from "../functions/loginUser.js";
+import type * as functions_metadata_migration from "../functions/metadata_migration.js";
 import type * as functions_products from "../functions/products.js";
 import type * as functions_seed from "../functions/seed.js";
-import type * as functions_uploadImage from "../functions/uploadImage.js";
+import type * as functions_updateProductAssets from "../functions/updateProductAssets.js";
+import type * as productData from "../productData.js";
 import type * as translations from "../translations.js";
 
 import type {
@@ -26,9 +28,11 @@ declare const fullApi: ApiFromModules<{
   constants: typeof constants;
   "functions/createUser": typeof functions_createUser;
   "functions/loginUser": typeof functions_loginUser;
+  "functions/metadata_migration": typeof functions_metadata_migration;
   "functions/products": typeof functions_products;
   "functions/seed": typeof functions_seed;
-  "functions/uploadImage": typeof functions_uploadImage;
+  "functions/updateProductAssets": typeof functions_updateProductAssets;
+  productData: typeof productData;
   translations: typeof translations;
 }>;
 
