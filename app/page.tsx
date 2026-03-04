@@ -7,7 +7,7 @@ import CategoryGrid from '../components/CategoryGrid';
 import FeaturesSection from '../components/FeaturesSection';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { FiShoppingBag ,FiArrowUp } from 'react-icons/fi';
+import { FiShoppingBag } from 'react-icons/fi';
 
 
 export default function Page() {

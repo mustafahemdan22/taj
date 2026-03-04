@@ -8,8 +8,6 @@ import { FiSearch, FiChevronLeft, FiChevronRight, FiFilter, FiX, FiGrid, FiList 
 import { useQuery } from "convex/react"; // ✅ FIXED: Import useQuery
 import { api } from "@/convex/_generated/api";
 import { Product } from "@/types";
-import { getCategoryName } from "@/convex/translations";
-import { CATEGORIES } from "@/convex/constants";
 import CategoryGrid from "@/components/CategoryGrid";
 
 // ✅ FIXED: Custom hook for products query
@@ -104,6 +102,7 @@ const CategoriesPage = () => {
 
   // ✅ FIXED: Use Convex React hook
   const products = useProducts();
+  const categories = useQuery(api.functions.categories.listCategories, {});
 
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -111,14 +110,14 @@ const CategoriesPage = () => {
   const [itemsPerPage, setItemsPerPage] = useState<number>(12);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
-  // ✅ FIXED: Derive categories from loaded products
+  // Dynamic categories from Convex
   const categoriesList = useMemo(() => {
-    return CATEGORIES.map((cat: string) => ({
-  id: cat,
-  name: getCategoryName(cat, language),
-  nameEn: cat,
-}));
-  }, [language]);
+    return (categories || []).map((c: any) => ({
+      id: c.slug as string,
+      name: language === "ar" ? c.name : c.nameEn,
+      nameEn: c.slug as string,
+    }));
+  }, [categories, language]);
 
   // Filtered Products
   const filteredProducts = useMemo(() => {

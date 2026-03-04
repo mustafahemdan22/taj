@@ -1,18 +1,24 @@
-import { motion } from 'framer-motion';
-import Link from 'next/link';
-import { useLanguage } from '../contexts/LanguageProvider';
-import { getCategoryAssets } from '@/utils/categoryImages';
-import { CATEGORIES } from '@/convex/constants';
-import { getCategoryName } from '@/convex/translations';
+"use client";
+
+import { motion } from "framer-motion";
+import Link from "next/link";
 import Image from "next/image";
+import { useQuery } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useLanguage } from "../contexts/LanguageProvider";
+import { getOptimizedCloudinaryUrl } from "@/utils/productImage";
+
+type Category = {
+  _id: string;
+  slug: string;
+  name: string;
+  nameEn: string;
+  heroImagePublicId: string;
+};
 
 const CategoryGrid = () => {
   const { language } = useLanguage();
-
-  const categories = CATEGORIES.map(id => ({
-    id,
-    name: getCategoryName(id, language)
-  }));
+  const categories = useQuery(api.functions.categories.listCategories, {});
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -43,20 +49,21 @@ const CategoryGrid = () => {
       viewport={{ once: true }}
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 "
     >
-      {categories.map((category) => {
+      {(categories || []).map((category: Category) => {
+        const name = language === "ar" ? category.name : category.nameEn;
         return (
           <motion.div
-            key={category.id}
+            key={category._id}
             variants={itemVariants}
             whileHover={{ y: -5, scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="group relative aspect-[4/3] rounded-3xl overflow-hidden cursor-pointer shadow-xl transition-all duration-500"
           >
-            <Link href={`/categories/${category.id}`}>
+            <Link href={`/categories/${category.slug}`}>
               <div className="absolute inset-0">
                 <Image
-                  src={getCategoryAssets(category.id).header}
-                  alt={category.name}
+                  src={getOptimizedCloudinaryUrl(category.heroImagePublicId, 1200)}
+                  alt={name}
                   fill
                   className="object-cover group-hover:scale-110 transition-transform duration-700"
                 />
@@ -64,7 +71,7 @@ const CategoryGrid = () => {
                 
                 <div className="absolute inset-x-0 bottom-0 p-6">
                   <h3 className="text-xl md:text-2xl font-black text-white text-center transform group-hover:scale-105 transition-transform duration-300">
-                    {category.name}
+                    {name}
                   </h3>
                   <motion.div 
                     initial={{ scaleX: 0 }}

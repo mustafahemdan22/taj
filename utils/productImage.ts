@@ -1,4 +1,4 @@
-import { Product } from '../types/index';
+import { Product } from "../types/index";
 
 const CLOUDINARY_CLOUD_NAME =
   process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "dfq1xxerr";
@@ -59,8 +59,9 @@ export function getProductImageUrl(product: Product): string {
 /**
  * Resolves all available image URLs for a product.
  */
-export function getProductImages(product: Product): string[] {
-  const rawImages: string[] = product?.images || [];
+export function getProductImages(product: Product | null | undefined): string[] {
+  if (!product) return [];
+  const rawImages: string[] = product.images || [];
 
   if (rawImages.length === 0) {
     return [];

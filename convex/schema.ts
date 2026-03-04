@@ -3,6 +3,18 @@ import { v } from "convex/values";
 
 export default defineSchema({
 
+  categories: defineTable({
+    slug: v.string(), // URL slug, e.g. "viscose"
+    name: v.string(), // Arabic display name
+    nameEn: v.string(), // English display name
+    heroImagePublicId: v.string(), // Cloudinary public_id, e.g. "taj-scarf/categories/viscose/header"
+    description: v.optional(v.string()),
+    descriptionEn: v.optional(v.string()),
+    sortOrder: v.optional(v.number()),
+  })
+    .index("by_slug", ["slug"])
+    .index("by_sortOrder", ["sortOrder"]),
+
   users: defineTable({
     clerkId: v.optional(v.string()),
     firstName: v.string(),

@@ -17,10 +17,19 @@ export const createProduct = mutation({
     rating: v.number(),
     reviews: v.number(),
   },
+
+
+
   handler: async (ctx, args) => {
-    return await ctx.db.insert("products", args);
+    return await ctx.db.insert("products",{
+    ...args,
+    category: args.category.trim().toLowerCase(),
+  });
   },
 });
+
+
+
 
 export const getProducts = query({
   handler: async (ctx) => {
@@ -45,10 +54,22 @@ export const getProductById = query({
 export const getProductsByCategory = query({
   args: { category: v.string() },
   handler: async (ctx, args) => {
+    const category = args.category.trim().toLowerCase();
+
     return await ctx.db
       .query("products")
-      .filter(q => q.eq(q.field("category"), args.category))
+      .withIndex("by_category", (q) =>
+        q.eq("category", category)
+      )
       .collect();
+  },
+});
+
+export const deleteProduct = mutation({
+  args: { productId: v.id("products") },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.productId);
+    return { deleted: true };
   },
 });
 
